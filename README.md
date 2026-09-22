@@ -24,8 +24,8 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
   generated from the whole conversation (falls back to the first line of text).
 - **Task list** — `/list` shows all tasks, newest first, with their status.
 - **Status** — `/done N` and `/undone N`.
-- **Export** _(planned)_ — `/show N` sends a zip with `task-N.md`, `task.json` and an
-  `attachments/` folder.
+- **Export** — `/show N` sends a zip with `task-N.md`, `task.json` and an `attachments/`
+  folder, all in the configured language.
 - **Edit** _(planned)_ — `/edit N` reopens a task so more messages can be added.
 - **Delete** — `/delete N` removes a task and its files after confirmation (owner only unless
   `ALLOW_MEMBER_DELETE=true`).
@@ -58,6 +58,26 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
 
 Attachments are stored under `STORAGE_DIR/tasks/<task id>/` with numbered names such as
 `001-photo.jpg` or `002-spec.pdf`.
+
+### Export format
+
+`/show 12` sends `task-12.zip`:
+
+```
+task-12.zip
+├── task-12.md          human-readable export (metadata, conversation, attachment list)
+├── task.json           the same data, structured, for scripts and integrations
+└── attachments/
+    ├── 001-photo.jpg
+    ├── 002-voice.oga
+    └── 003-spec.pdf
+```
+
+The Markdown file lists every message in order with author and time; voice messages include
+their transcript, photos are embedded with relative links (they render in Obsidian, VS Code and
+most Markdown viewers once the zip is extracted), and messages added with `/edit` appear under
+their own heading. Labels and dates follow `BOT_LANGUAGE` and `TZ`. If the zip would exceed
+Telegram's 50 MB upload limit, it is sent without the attachments and the bot says so.
 
 ## OpenAI
 
