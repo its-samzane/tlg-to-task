@@ -8,8 +8,10 @@ import {
   getCapturingTask,
   getTaskById,
   setControlMessage,
+  startEdit,
   startTask,
 } from '../services/tasks.js';
+import { resolveTaskArgument } from './commands/manage.js';
 import type { AppContext, Deps } from './context.js';
 import { replyHtml, requireActiveGroup, userDisplayName } from './util.js';
 
@@ -28,6 +30,13 @@ export function registerRecordingCommands(bot: Bot<AppContext>): void {
   bot.command('new', async (ctx) => {
     if (!(await requireActiveGroup(ctx))) return;
     await startRecording(ctx);
+  });
+
+  bot.command('edit', async (ctx) => {
+    if (!(await requireActiveGroup(ctx))) return;
+    const task = await resolveTaskArgument(ctx, 'edit');
+    if (!task) return;
+    await startEditing(ctx, task);
   });
 
   bot.command('end', async (ctx) => {
@@ -94,6 +103,28 @@ export async function startRecording(ctx: AppContext): Promise<void> {
   }
 }
 
+export async function startEditing(ctx: AppContext, task: Task): Promise<void> {
+  try {
+    const editing = await startEdit(ctx.deps.db, task);
+    const control = await replyHtml(
+      ctx,
+      ctx.t('task.editStarted', { number: editing.number, title: editing.title ?? '' }),
+      { reply_markup: controlKeyboard(ctx.t, editing.id) },
+    );
+    await setControlMessage(ctx.deps.db, editing.id, control.message_id);
+    ctx.deps.logger.info(
+      { taskId: editing.id, number: editing.number, round: editing.editRound },
+      'Editing started',
+    );
+  } catch (error) {
+    if (error instanceof TaskAlreadyRecordingError) {
+      await replyHtml(ctx, ctx.t('task.alreadyRecording', { number: error.task.number }));
+      return;
+    }
+    throw error;
+  }
+}
+
 async function generateTitle(deps: Deps, list: Message[]): Promise<string | undefined> {
   if (!deps.titles) return undefined;
   try {
@@ -135,6 +166,13 @@ export async function finishRecording(ctx: AppContext, task: Task): Promise<void
       await updateControlMessage(ctx, task, ctx.t('task.cancelledControl', { number }));
       await replyHtml(ctx, ctx.t('task.emptyDiscarded', { number }));
       logger.info({ taskId: task.id }, 'Empty task discarded');
+      return;
+    }
+    if (task.captureState === 'edit' && roundMessages.length === 0) {
+      await finishTask(db, task.id);
+      await updateControlMessage(ctx, task, ctx.t('task.recordingFinishedControl', { number }));
+      await replyHtml(ctx, ctx.t('task.editNothingAdded', { number }));
+      logger.info({ taskId: task.id }, 'Edit round finished without additions');
       return;
     }
 

@@ -26,7 +26,8 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
 - **Status** — `/done N` and `/undone N`.
 - **Export** — `/show N` sends a zip with `task-N.md`, `task.json` and an `attachments/`
   folder, all in the configured language.
-- **Edit** _(planned)_ — `/edit N` reopens a task so more messages can be added.
+- **Edit** — `/edit N` reopens a task so more messages can be added; the title stays, and the
+  additions appear under their own heading in the export.
 - **Delete** — `/delete N` removes a task and its files after confirmation (owner only unless
   `ALLOW_MEMBER_DELETE=true`).
 - **Multi-language** — all bot messages and exports come from `locales/*.json`; English and
@@ -41,7 +42,9 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
    are not captured. Only one task per group can be recording at a time.
 4. **Finish** closes the task: pending transcriptions complete and a title is generated.
    **Cancel** discards it together with its files. Finishing an empty recording discards it too.
-5. Use `/list`, `/show N`, `/done N`, `/undone N`, `/edit N` and `/delete N` to manage tasks.
+5. Use `/list`, `/show N`, `/done N`, `/undone N` and `/delete N` to manage tasks.
+6. `/edit N` reopens a finished task: everything sent until **Finish** is appended to it (the
+   title is kept). **Cancel** discards only what was added during the edit.
 
 ### Commands
 

@@ -151,3 +151,33 @@ export async function deleteTask(db: Db, taskId: number): Promise<boolean> {
   const deleted = await db.delete(tasks).where(eq(tasks.id, taskId)).returning({ id: tasks.id });
   return deleted.length > 0;
 }
+
+/**
+ * Reopens a finished task for additions: starts a new edit round in "recording" state.
+ * Fails with TaskAlreadyRecordingError when another task in the chat is recording.
+ */
+export async function startEdit(db: Db, task: Task): Promise<Task> {
+  if (task.captureState !== 'none') throw new TaskAlreadyRecordingError(task);
+  const other = await getCapturingTask(db, task.chatId);
+  if (other) throw new TaskAlreadyRecordingError(other);
+  try {
+    const [updated] = await db
+      .update(tasks)
+      .set({
+        captureState: 'edit',
+        editRound: sql`${tasks.editRound} + 1`,
+        controlMessageId: null,
+        updatedAt: new Date(),
+      })
+      .where(and(eq(tasks.id, task.id), eq(tasks.captureState, 'none')))
+      .returning();
+    if (!updated) throw new TaskAlreadyRecordingError(task);
+    return updated;
+  } catch (error) {
+    if (pgErrorCode(error) === PG_UNIQUE_VIOLATION) {
+      const existing = await getCapturingTask(db, task.chatId);
+      if (existing) throw new TaskAlreadyRecordingError(existing);
+    }
+    throw error;
+  }
+}
