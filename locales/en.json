@@ -13,7 +13,11 @@
     "unregister": "Deactivate the bot in this group (owner only)",
     "new": "Start recording a new task",
     "end": "Finish the task being recorded",
-    "cancel": "Cancel the task being recorded"
+    "cancel": "Cancel the task being recorded",
+    "list": "List all tasks",
+    "done": "Mark a task as done: /done 12",
+    "undone": "Mark a task as not done: /undone 12",
+    "delete": "Delete a task: /delete 12"
   },
   "start": {
     "private": "👋 Hi! I collect tasks from Telegram groups.\n\nYour Telegram user ID: <code>{userId}</code>\nIf you run this bot, put that number in <code>OWNER_TELEGRAM_ID</code>.\n\nAdd me to a group and send /register there to activate me. Send /help to see all commands."
@@ -28,7 +32,10 @@
     "generic": "Something went wrong. Please try again.",
     "groupOnly": "This command only works in groups.",
     "ownerOnly": "Only the bot owner can do that.",
-    "notRegistered": "This group is not activated yet. The bot owner has to send /register here first."
+    "notRegistered": "This group is not activated yet. The bot owner has to send /register here first.",
+    "usageNumber": "Please add the task number, for example: /{command} 12",
+    "taskNotFound": "There is no task #{number} in this group.",
+    "taskRecording": "Task #{number} is still being recorded. Finish or cancel the recording first."
   },
   "register": {
     "success": "✅ This group is now active. Anyone here can start a task with /new.",
@@ -42,7 +49,9 @@
   },
   "buttons": {
     "finish": "✅ Finish",
-    "cancel": "✖ Cancel"
+    "cancel": "✖ Cancel",
+    "confirmDelete": "🗑 Yes, delete",
+    "keep": "Keep"
   },
   "task": {
     "recordingStarted": "🎙 Recording task #{number}.\nEverything sent in this group from now on (text, voice, photos, videos, files) will be added to it, no matter who sends it. Press <b>Finish</b> when you are done.",
@@ -58,11 +67,29 @@
     "untitled": "Task #{number}"
   },
   "callback": {
-    "stale": "This task is no longer being recorded."
+    "stale": "This task is no longer being recorded.",
+    "notYours": "Only the person who asked for this (or the bot owner) can confirm it.",
+    "gone": "This task no longer exists."
   },
   "capture": {
     "fileTooBig": "⚠️ This file is larger than 20 MB, so it could not be saved with the task.",
     "downloadFailed": "⚠️ This file could not be downloaded. The message was recorded without it.",
     "transcriptionFailed": "⚠️ This voice message could not be transcribed. It is kept as an audio file."
+  },
+  "list": {
+    "empty": "No tasks yet. Send /new to record the first one.",
+    "header": "📋 {total} task(s): {open} open, {done} done",
+    "recording": "<i>(recording…)</i>"
+  },
+  "status": {
+    "done": "✅ Task #{number} marked as done.\n<b>{title}</b>",
+    "undone": "⬜ Task #{number} marked as not done.\n<b>{title}</b>",
+    "alreadyDone": "Task #{number} is already marked as done.",
+    "alreadyOpen": "Task #{number} is already marked as not done."
+  },
+  "delete": {
+    "confirm": "🗑 Delete task #{number} and all of its files?\n<b>{title}</b>\nThis cannot be undone.",
+    "done": "🗑 Task #{number} was deleted.",
+    "kept": "Task #{number} was kept."
   }
 }

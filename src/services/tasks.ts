@@ -1,4 +1,4 @@
-import { and, eq, ne, sql } from 'drizzle-orm';
+import { and, desc, eq, ne, sql } from 'drizzle-orm';
 import type { Db } from '../db/client.js';
 import { chats, messages, tasks, type Message, type Task } from '../db/schema.js';
 import { PG_UNIQUE_VIOLATION, pgErrorCode, TaskAlreadyRecordingError } from './errors.js';
@@ -125,4 +125,29 @@ export async function countMessages(db: Db, taskId: number): Promise<number> {
     .from(messages)
     .where(eq(messages.taskId, taskId));
   return row?.count ?? 0;
+}
+
+/** All tasks of a chat, newest first. Includes the task currently being recorded, if any. */
+export async function listTasks(db: Db, chatId: number): Promise<Task[]> {
+  return db.select().from(tasks).where(eq(tasks.chatId, chatId)).orderBy(desc(tasks.number));
+}
+
+export async function setTaskStatus(
+  db: Db,
+  taskId: number,
+  status: Task['status'],
+): Promise<Task | undefined> {
+  const now = new Date();
+  const [task] = await db
+    .update(tasks)
+    .set({ status, doneAt: status === 'done' ? now : null, updatedAt: now })
+    .where(eq(tasks.id, taskId))
+    .returning();
+  return task;
+}
+
+/** Permanently removes a task and its messages (files are removed by the caller). */
+export async function deleteTask(db: Db, taskId: number): Promise<boolean> {
+  const deleted = await db.delete(tasks).where(eq(tasks.id, taskId)).returning({ id: tasks.id });
+  return deleted.length > 0;
 }
