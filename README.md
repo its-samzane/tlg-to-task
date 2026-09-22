@@ -22,12 +22,13 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
   finishing a task waits for pending transcriptions.
 - **AI titles** — when a task is finished, a short title in the configured language is
   generated from the whole conversation (falls back to the first line of text).
-- **Task list** _(planned)_ — `/list` shows all tasks, newest first, with their status.
-- **Status** _(planned)_ — `/done N` and `/undone N`.
+- **Task list** — `/list` shows all tasks, newest first, with their status.
+- **Status** — `/done N` and `/undone N`.
 - **Export** _(planned)_ — `/show N` sends a zip with `task-N.md`, `task.json` and an
   `attachments/` folder.
 - **Edit** _(planned)_ — `/edit N` reopens a task so more messages can be added.
-- **Delete** _(planned)_ — `/delete N` removes a task and its files (with confirmation).
+- **Delete** — `/delete N` removes a task and its files after confirmation (owner only unless
+  `ALLOW_MEMBER_DELETE=true`).
 - **Multi-language** — all bot messages and exports come from `locales/*.json`; English and
   Persian are included, more languages are on the way.
 

@@ -2,6 +2,7 @@ import { Bot, type BotConfig } from 'grammy';
 import { getActiveChat } from '../services/chats.js';
 import { registerCapture } from './capture.js';
 import { registerBasicCommands } from './commands/basic.js';
+import { registerManagementCommands } from './commands/manage.js';
 import { registerRegistrationCommands } from './commands/register.js';
 import type { AppContext, Deps } from './context.js';
 import { registerEvents } from './events.js';
@@ -25,6 +26,7 @@ export function createBot(deps: Deps, options: BotConfig<AppContext> = {}): Bot<
   registerBasicCommands(bot);
   registerRegistrationCommands(bot);
   registerRecordingCommands(bot);
+  registerManagementCommands(bot);
   registerEvents(bot);
   registerCapture(bot);
 
