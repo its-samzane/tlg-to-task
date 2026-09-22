@@ -1,0 +1,119 @@
+{
+  "_meta": { "name": "Deutsch", "englishName": "German", "intlLocale": "de-DE", "rtl": false },
+  "commands": {
+    "start": "Bot starten",
+    "help": "Verfügbare Befehle anzeigen",
+    "id": "Deine Benutzer-ID und die ID dieses Chats anzeigen",
+    "register": "Bot in dieser Gruppe aktivieren (nur Besitzer)",
+    "unregister": "Bot in dieser Gruppe deaktivieren (nur Besitzer)",
+    "new": "Aufzeichnung einer neuen Aufgabe starten",
+    "end": "Aufgezeichnete Aufgabe abschließen",
+    "cancel": "Aufgezeichnete Aufgabe abbrechen",
+    "list": "Alle Aufgaben auflisten",
+    "done": "Aufgabe als erledigt markieren: /done 12",
+    "undone": "Aufgabe als nicht erledigt markieren: /undone 12",
+    "delete": "Aufgabe löschen: /delete 12",
+    "show": "Aufgabe als ZIP exportieren (Markdown + Dateien): /show 12",
+    "edit": "Etwas zu einer bestehenden Aufgabe hinzufügen: /edit 12"
+  },
+  "start": {
+    "private": "👋 Hallo! Ich sammle Aufgaben aus Telegram-Gruppen.\n\nDeine Telegram-Benutzer-ID: <code>{userId}</code>\nWenn du diesen Bot betreibst, trage diese Zahl in <code>OWNER_TELEGRAM_ID</code> ein.\n\nFüge mich zu einer Gruppe hinzu und sende dort /register, um mich zu aktivieren. Sende /help, um alle Befehle zu sehen."
+  },
+  "help": { "text": "Verfügbare Befehle:\n\n{commands}" },
+  "id": { "text": "Deine Benutzer-ID: <code>{userId}</code>\nChat-ID: <code>{chatId}</code>" },
+  "errors": {
+    "generic": "Etwas ist schiefgelaufen. Bitte versuche es noch einmal.",
+    "groupOnly": "Dieser Befehl funktioniert nur in Gruppen.",
+    "ownerOnly": "Das kann nur der Besitzer des Bots.",
+    "notRegistered": "Diese Gruppe ist noch nicht aktiviert. Der Besitzer des Bots muss hier zuerst /register senden.",
+    "usageNumber": "Bitte gib die Aufgabennummer an, zum Beispiel: /{command} 12",
+    "taskNotFound": "In dieser Gruppe gibt es keine Aufgabe #{number}.",
+    "taskRecording": "Aufgabe #{number} wird noch aufgezeichnet. Beende oder brich die Aufzeichnung zuerst ab."
+  },
+  "register": {
+    "success": "✅ Diese Gruppe ist jetzt aktiv. Jeder hier kann mit /new eine Aufgabe starten.",
+    "already": "Diese Gruppe ist bereits aktiv."
+  },
+  "unregister": {
+    "success": "Diese Gruppe wurde deaktiviert. Bestehende Aufgaben bleiben erhalten; sende /register, um sie wieder zu aktivieren."
+  },
+  "joined": {
+    "hint": "👋 Danke, dass du mich hinzugefügt hast! Der Besitzer des Bots muss hier /register senden, um die Aufgabenaufzeichnung zu aktivieren."
+  },
+  "buttons": {
+    "finish": "✅ Abschließen",
+    "cancel": "✖ Abbrechen",
+    "confirmDelete": "🗑 Ja, löschen",
+    "keep": "Behalten"
+  },
+  "task": {
+    "recordingStarted": "🎙 Aufgabe #{number} wird aufgezeichnet.\nAlles, was ab jetzt in dieser Gruppe gesendet wird (Text, Sprachnachrichten, Fotos, Videos, Dateien), wird ihr hinzugefügt, egal von wem. Drücke <b>Abschließen</b>, wenn du fertig bist.",
+    "alreadyRecording": "Aufgabe #{number} wird noch aufgezeichnet. Schließe sie ab oder brich sie ab, bevor du eine neue startest.",
+    "noneRecording": "Gerade wird keine Aufgabe aufgezeichnet. Sende /new, um eine zu starten.",
+    "finished": "✅ Aufgabe #{number} gespeichert.\n<b>{title}</b>\n{count} Nachricht(en) aufgezeichnet.",
+    "updated": "✅ Aufgabe #{number} aktualisiert.\n<b>{title}</b>\n{count} Nachricht(en) hinzugefügt.",
+    "recordingFinishedControl": "🎙 Aufzeichnung von Aufgabe #{number} abgeschlossen.",
+    "cancelledControl": "🎙 Aufzeichnung von Aufgabe #{number} abgebrochen.",
+    "cancelled": "✖ Aufgabe #{number} wurde abgebrochen und verworfen.",
+    "editCancelled": "✖ Die Bearbeitung von Aufgabe #{number} wurde abgebrochen. Die Aufgabe ist unverändert.",
+    "emptyDiscarded": "Es wurde nichts aufgezeichnet, daher wurde Aufgabe #{number} verworfen.",
+    "untitled": "Aufgabe #{number}",
+    "editStarted": "✏️ Aufgabe #{number} wird bearbeitet.\n<b>{title}</b>\nAlles, was ab jetzt in dieser Gruppe gesendet wird, wird ihr hinzugefügt. Drücke <b>Abschließen</b>, wenn du fertig bist.",
+    "editNothingAdded": "Es wurde nichts hinzugefügt, daher ist Aufgabe #{number} unverändert."
+  },
+  "callback": {
+    "stale": "Diese Aufgabe wird nicht mehr aufgezeichnet.",
+    "notYours": "Nur die Person, die das angefordert hat (oder der Besitzer des Bots), kann es bestätigen.",
+    "gone": "Diese Aufgabe existiert nicht mehr."
+  },
+  "capture": {
+    "fileTooBig": "⚠️ Diese Datei ist größer als 20 MB und konnte deshalb nicht mit der Aufgabe gespeichert werden.",
+    "downloadFailed": "⚠️ Diese Datei konnte nicht heruntergeladen werden. Die Nachricht wurde ohne sie aufgezeichnet.",
+    "transcriptionFailed": "⚠️ Diese Sprachnachricht konnte nicht transkribiert werden. Sie bleibt als Audiodatei erhalten."
+  },
+  "list": {
+    "empty": "Noch keine Aufgaben. Sende /new, um die erste aufzuzeichnen.",
+    "header": "📋 {total} Aufgabe(n): {open} offen, {done} erledigt",
+    "recording": "<i>(wird aufgezeichnet…)</i>"
+  },
+  "status": {
+    "done": "✅ Aufgabe #{number} als erledigt markiert.\n<b>{title}</b>",
+    "undone": "⬜ Aufgabe #{number} als nicht erledigt markiert.\n<b>{title}</b>",
+    "alreadyDone": "Aufgabe #{number} ist bereits als erledigt markiert.",
+    "alreadyOpen": "Aufgabe #{number} ist bereits als nicht erledigt markiert."
+  },
+  "delete": {
+    "confirm": "🗑 Aufgabe #{number} mit allen Dateien löschen?\n<b>{title}</b>\nDas kann nicht rückgängig gemacht werden.",
+    "done": "🗑 Aufgabe #{number} wurde gelöscht.",
+    "kept": "Aufgabe #{number} wurde behalten."
+  },
+  "export": {
+    "status": "Status",
+    "statusOpen": "Offen",
+    "statusDone": "Erledigt",
+    "group": "Gruppe",
+    "createdBy": "Erstellt von",
+    "created": "Erstellt",
+    "finished": "Abgeschlossen",
+    "updated": "Zuletzt aktualisiert",
+    "doneAt": "Als erledigt markiert",
+    "messages": "Nachrichten",
+    "attachments": "Anhänge",
+    "conversation": "Unterhaltung",
+    "addedLater": "Später hinzugefügt ({date})",
+    "notTranscribed": "Sprachnachricht ohne Transkript",
+    "fileMissing": "Datei nicht verfügbar (zu groß oder Download fehlgeschlagen)",
+    "kind": {
+      "voice": "Sprachnachricht",
+      "audio": "Audio",
+      "photo": "Foto",
+      "video": "Video",
+      "videoNote": "Videonachricht",
+      "file": "Datei",
+      "sticker": "Sticker",
+      "other": "Sonstiges"
+    },
+    "attachmentsLeftOut": "⚠️ Die Anhänge wurden aus der ZIP-Datei weggelassen, weil sie sonst das Upload-Limit von Telegram (50 MB) überschreiten würde. Die Dateien sind weiterhin auf dem Server gespeichert.",
+    "someFilesMissing": "⚠️ Diese Dateien wurden auf dem Server nicht gefunden und fehlen in der ZIP-Datei: {files}"
+  }
+}

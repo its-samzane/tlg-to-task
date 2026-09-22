@@ -30,8 +30,8 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
   additions appear under their own heading in the export.
 - **Delete** — `/delete N` removes a task and its files after confirmation (owner only unless
   `ALLOW_MEMBER_DELETE=true`).
-- **Multi-language** — all bot messages and exports come from `locales/*.json`; English and
-  Persian are included, more languages are on the way.
+- **Multi-language** — all bot messages and exports come from `locales/*.json`. Seventeen
+  languages are included (see [Languages](#languages)); adding one is a single JSON file.
 
 ## How it works
 
@@ -169,14 +169,42 @@ sends, for the Markdown export, for the AI-generated titles and (unless overridd
 for speech-to-text. Dates are formatted with the locale's calendar, so Persian uses the Solar
 Hijri calendar.
 
-| Code | Language        |
-| ---- | --------------- |
-| `en` | English         |
-| `fa` | فارسی (Persian) |
+| Code | Language               |
+| ---- | ---------------------- |
+| `en` | English                |
+| `fa` | فارسی (Persian)        |
+| `ar` | العربية (Arabic)       |
+| `tr` | Türkçe (Turkish)       |
+| `de` | Deutsch (German)       |
+| `fr` | Français (French)      |
+| `es` | Español (Spanish)      |
+| `it` | Italiano (Italian)     |
+| `pt` | Português (Portuguese) |
+| `ru` | Русский (Russian)      |
+| `uk` | Українська (Ukrainian) |
+| `zh` | 简体中文 (Chinese)     |
+| `ja` | 日本語 (Japanese)      |
+| `ko` | 한국어 (Korean)        |
+| `hi` | हिन्दी (Hindi)         |
+| `ur` | اردو (Urdu)            |
+| `id` | Bahasa Indonesia       |
 
-More languages are being added. To add one yourself, copy `locales/en.json` to
-`locales/<code>.json`, translate the values (keep the `{placeholders}`), fill in `_meta` and run
-`npm test` — a test checks that every locale has exactly the same keys as English.
+The translations were written by the maintainers, not by native speakers of every language.
+Corrections are welcome as pull requests.
+
+### Adding a language
+
+1. Copy `locales/en.json` to `locales/<code>.json`, where `<code>` is the ISO 639-1 code you will
+   put in `BOT_LANGUAGE` (for example `nl`).
+2. Fill in `_meta`: the native `name`, the `englishName` (used in the prompt that asks OpenAI for a
+   title), the `intlLocale` used for date formatting (for example `nl-NL`) and `rtl`.
+3. Translate every value. Keep the `{placeholders}`, the `<b>`/`<code>` tags and the command names
+   (`/new`, `/register`, ...) exactly as they are. `\n` starts a new line.
+4. Run `npm test`. A test checks that every locale has the same keys and placeholders as English
+   and that `intlLocale` is valid.
+5. Add the language to the table above and open a pull request.
+
+Missing keys fall back to English at runtime, so a partially translated file still works.
 
 ## Development
 

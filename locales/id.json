@@ -1,0 +1,124 @@
+{
+  "_meta": {
+    "name": "Bahasa Indonesia",
+    "englishName": "Indonesian",
+    "intlLocale": "id-ID",
+    "rtl": false
+  },
+  "commands": {
+    "start": "Mulai bot",
+    "help": "Tampilkan perintah yang tersedia",
+    "id": "Tampilkan ID pengguna Anda dan ID obrolan ini",
+    "register": "Aktifkan bot di grup ini (hanya pemilik)",
+    "unregister": "Nonaktifkan bot di grup ini (hanya pemilik)",
+    "new": "Mulai merekam tugas baru",
+    "end": "Selesaikan tugas yang sedang direkam",
+    "cancel": "Batalkan tugas yang sedang direkam",
+    "list": "Daftar semua tugas",
+    "done": "Tandai tugas sebagai selesai: /done 12",
+    "undone": "Tandai tugas sebagai belum selesai: /undone 12",
+    "delete": "Hapus tugas: /delete 12",
+    "show": "Ekspor tugas sebagai zip (Markdown + berkas): /show 12",
+    "edit": "Tambahkan ke tugas yang sudah ada: /edit 12"
+  },
+  "start": {
+    "private": "👋 Halo! Saya mengumpulkan tugas dari grup Telegram.\n\nID pengguna Telegram Anda: <code>{userId}</code>\nJika Anda yang menjalankan bot ini, masukkan angka itu ke <code>OWNER_TELEGRAM_ID</code>.\n\nTambahkan saya ke grup dan kirim /register di sana untuk mengaktifkan saya. Kirim /help untuk melihat semua perintah."
+  },
+  "help": { "text": "Perintah yang tersedia:\n\n{commands}" },
+  "id": { "text": "ID pengguna Anda: <code>{userId}</code>\nID obrolan: <code>{chatId}</code>" },
+  "errors": {
+    "generic": "Terjadi kesalahan. Silakan coba lagi.",
+    "groupOnly": "Perintah ini hanya berfungsi di grup.",
+    "ownerOnly": "Hanya pemilik bot yang dapat melakukan itu.",
+    "notRegistered": "Grup ini belum diaktifkan. Pemilik bot harus mengirim /register di sini terlebih dahulu.",
+    "usageNumber": "Sertakan nomor tugas, misalnya: /{command} 12",
+    "taskNotFound": "Tidak ada tugas #{number} di grup ini.",
+    "taskRecording": "Tugas #{number} masih direkam. Selesaikan atau batalkan perekaman terlebih dahulu."
+  },
+  "register": {
+    "success": "✅ Grup ini sekarang aktif. Siapa pun di sini dapat memulai tugas dengan /new.",
+    "already": "Grup ini sudah aktif."
+  },
+  "unregister": {
+    "success": "Grup ini telah dinonaktifkan. Tugas yang ada tetap tersimpan; kirim /register untuk mengaktifkannya lagi."
+  },
+  "joined": {
+    "hint": "👋 Terima kasih telah menambahkan saya! Pemilik bot perlu mengirim /register di sini untuk mengaktifkan perekaman tugas."
+  },
+  "buttons": {
+    "finish": "✅ Selesai",
+    "cancel": "✖ Batal",
+    "confirmDelete": "🗑 Ya, hapus",
+    "keep": "Simpan"
+  },
+  "task": {
+    "recordingStarted": "🎙 Merekam tugas #{number}.\nSemua yang dikirim di grup ini mulai sekarang (teks, suara, foto, video, berkas) akan ditambahkan ke tugas ini, siapa pun pengirimnya. Tekan <b>Selesai</b> jika sudah.",
+    "alreadyRecording": "Tugas #{number} masih direkam. Selesaikan atau batalkan sebelum memulai yang baru.",
+    "noneRecording": "Tidak ada tugas yang sedang direkam. Kirim /new untuk memulai.",
+    "finished": "✅ Tugas #{number} disimpan.\n<b>{title}</b>\n{count} pesan direkam.",
+    "updated": "✅ Tugas #{number} diperbarui.\n<b>{title}</b>\n{count} pesan ditambahkan.",
+    "recordingFinishedControl": "🎙 Perekaman tugas #{number} selesai.",
+    "cancelledControl": "🎙 Perekaman tugas #{number} dibatalkan.",
+    "cancelled": "✖ Tugas #{number} dibatalkan dan dibuang.",
+    "editCancelled": "✖ Penyuntingan tugas #{number} dibatalkan. Tugas tidak berubah.",
+    "emptyDiscarded": "Tidak ada yang direkam, jadi tugas #{number} dibuang.",
+    "untitled": "Tugas #{number}",
+    "editStarted": "✏️ Menyunting tugas #{number}.\n<b>{title}</b>\nSemua yang dikirim di grup ini mulai sekarang akan ditambahkan ke tugas ini. Tekan <b>Selesai</b> jika sudah.",
+    "editNothingAdded": "Tidak ada yang ditambahkan, jadi tugas #{number} tidak berubah."
+  },
+  "callback": {
+    "stale": "Tugas ini tidak lagi direkam.",
+    "notYours": "Hanya orang yang memintanya (atau pemilik bot) yang dapat mengonfirmasi.",
+    "gone": "Tugas ini sudah tidak ada."
+  },
+  "capture": {
+    "fileTooBig": "⚠️ Berkas ini lebih besar dari 20 MB, sehingga tidak dapat disimpan bersama tugas.",
+    "downloadFailed": "⚠️ Berkas ini tidak dapat diunduh. Pesan direkam tanpa berkas tersebut.",
+    "transcriptionFailed": "⚠️ Pesan suara ini tidak dapat ditranskripsi. Pesan disimpan sebagai berkas audio."
+  },
+  "list": {
+    "empty": "Belum ada tugas. Kirim /new untuk merekam yang pertama.",
+    "header": "📋 {total} tugas: {open} belum selesai, {done} selesai",
+    "recording": "<i>(merekam…)</i>"
+  },
+  "status": {
+    "done": "✅ Tugas #{number} ditandai selesai.\n<b>{title}</b>",
+    "undone": "⬜ Tugas #{number} ditandai belum selesai.\n<b>{title}</b>",
+    "alreadyDone": "Tugas #{number} sudah ditandai selesai.",
+    "alreadyOpen": "Tugas #{number} sudah ditandai belum selesai."
+  },
+  "delete": {
+    "confirm": "🗑 Hapus tugas #{number} beserta semua berkasnya?\n<b>{title}</b>\nTindakan ini tidak dapat dibatalkan.",
+    "done": "🗑 Tugas #{number} telah dihapus.",
+    "kept": "Tugas #{number} disimpan."
+  },
+  "export": {
+    "status": "Status",
+    "statusOpen": "Belum selesai",
+    "statusDone": "Selesai",
+    "group": "Grup",
+    "createdBy": "Dibuat oleh",
+    "created": "Dibuat",
+    "finished": "Diselesaikan",
+    "updated": "Terakhir diperbarui",
+    "doneAt": "Ditandai selesai",
+    "messages": "Pesan",
+    "attachments": "Lampiran",
+    "conversation": "Percakapan",
+    "addedLater": "Ditambahkan kemudian ({date})",
+    "notTranscribed": "pesan suara tanpa transkrip",
+    "fileMissing": "berkas tidak tersedia (terlalu besar atau tidak dapat diunduh)",
+    "kind": {
+      "voice": "pesan suara",
+      "audio": "audio",
+      "photo": "foto",
+      "video": "video",
+      "videoNote": "pesan video",
+      "file": "berkas",
+      "sticker": "stiker",
+      "other": "lainnya"
+    },
+    "attachmentsLeftOut": "⚠️ Lampiran tidak disertakan dalam zip karena akan melebihi batas unggah Telegram (50 MB). Berkas tetap tersimpan di server.",
+    "someFilesMissing": "⚠️ Berkas berikut tidak ditemukan di server dan tidak ada di zip: {files}"
+  }
+}

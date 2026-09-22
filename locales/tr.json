@@ -1,0 +1,121 @@
+{
+  "_meta": { "name": "Türkçe", "englishName": "Turkish", "intlLocale": "tr-TR", "rtl": false },
+  "commands": {
+    "start": "Botu başlat",
+    "help": "Kullanılabilir komutları göster",
+    "id": "Kullanıcı kimliğini ve bu sohbetin kimliğini göster",
+    "register": "Botu bu grupta etkinleştir (yalnızca sahip)",
+    "unregister": "Botu bu grupta devre dışı bırak (yalnızca sahip)",
+    "new": "Yeni bir görev kaydetmeye başla",
+    "end": "Kaydedilen görevi bitir",
+    "cancel": "Kaydedilen görevi iptal et",
+    "list": "Tüm görevleri listele",
+    "done": "Bir görevi tamamlandı olarak işaretle: /done 12",
+    "undone": "Bir görevi tamamlanmadı olarak işaretle: /undone 12",
+    "delete": "Bir görevi sil: /delete 12",
+    "show": "Bir görevi zip olarak dışa aktar (Markdown + dosyalar): /show 12",
+    "edit": "Var olan bir göreve ekleme yap: /edit 12"
+  },
+  "start": {
+    "private": "👋 Merhaba! Telegram gruplarından görev topluyorum.\n\nTelegram kullanıcı kimliğiniz: <code>{userId}</code>\nBu botu siz çalıştırıyorsanız bu sayıyı <code>OWNER_TELEGRAM_ID</code> alanına yazın.\n\nBeni bir gruba ekleyin ve etkinleştirmek için orada /register gönderin. Tüm komutlar için /help gönderin."
+  },
+  "help": { "text": "Kullanılabilir komutlar:\n\n{commands}" },
+  "id": {
+    "text": "Kullanıcı kimliğiniz: <code>{userId}</code>\nSohbet kimliği: <code>{chatId}</code>"
+  },
+  "errors": {
+    "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+    "groupOnly": "Bu komut yalnızca gruplarda çalışır.",
+    "ownerOnly": "Bunu yalnızca bot sahibi yapabilir.",
+    "notRegistered": "Bu grup henüz etkinleştirilmedi. Bot sahibinin önce burada /register göndermesi gerekiyor.",
+    "usageNumber": "Lütfen görev numarasını ekleyin, örneğin: /{command} 12",
+    "taskNotFound": "Bu grupta #{number} numaralı görev yok.",
+    "taskRecording": "#{number} numaralı görev hâlâ kaydediliyor. Önce kaydı bitirin veya iptal edin."
+  },
+  "register": {
+    "success": "✅ Bu grup artık etkin. Buradaki herkes /new ile görev başlatabilir.",
+    "already": "Bu grup zaten etkin."
+  },
+  "unregister": {
+    "success": "Bu grup devre dışı bırakıldı. Mevcut görevler saklanır; yeniden etkinleştirmek için /register gönderin."
+  },
+  "joined": {
+    "hint": "👋 Beni eklediğiniz için teşekkürler! Görev kaydını etkinleştirmek için bot sahibinin burada /register göndermesi gerekiyor."
+  },
+  "buttons": {
+    "finish": "✅ Bitir",
+    "cancel": "✖ İptal",
+    "confirmDelete": "🗑 Evet, sil",
+    "keep": "Sakla"
+  },
+  "task": {
+    "recordingStarted": "🎙 #{number} numaralı görev kaydediliyor.\nŞu andan itibaren bu grupta gönderilen her şey (metin, ses, fotoğraf, video, dosya) kim gönderdiğine bakılmadan bu göreve eklenir. Bitirdiğinizde <b>Bitir</b>'e basın.",
+    "alreadyRecording": "#{number} numaralı görev hâlâ kaydediliyor. Yeni bir görev başlatmadan önce onu bitirin veya iptal edin.",
+    "noneRecording": "Şu anda kaydedilen bir görev yok. Başlatmak için /new gönderin.",
+    "finished": "✅ #{number} numaralı görev kaydedildi.\n<b>{title}</b>\n{count} mesaj kaydedildi.",
+    "updated": "✅ #{number} numaralı görev güncellendi.\n<b>{title}</b>\n{count} mesaj eklendi.",
+    "recordingFinishedControl": "🎙 #{number} numaralı görevin kaydı bitti.",
+    "cancelledControl": "🎙 #{number} numaralı görevin kaydı iptal edildi.",
+    "cancelled": "✖ #{number} numaralı görev iptal edildi ve silindi.",
+    "editCancelled": "✖ #{number} numaralı görevin düzenlenmesi iptal edildi. Görev değişmedi.",
+    "emptyDiscarded": "Hiçbir şey kaydedilmedi, bu yüzden #{number} numaralı görev silindi.",
+    "untitled": "Görev #{number}",
+    "editStarted": "✏️ #{number} numaralı görev düzenleniyor.\n<b>{title}</b>\nŞu andan itibaren bu grupta gönderilen her şey bu göreve eklenir. Bitirdiğinizde <b>Bitir</b>'e basın.",
+    "editNothingAdded": "Hiçbir şey eklenmedi, bu yüzden #{number} numaralı görev değişmedi."
+  },
+  "callback": {
+    "stale": "Bu görev artık kaydedilmiyor.",
+    "notYours": "Bunu yalnızca isteyen kişi (veya bot sahibi) onaylayabilir.",
+    "gone": "Bu görev artık yok."
+  },
+  "capture": {
+    "fileTooBig": "⚠️ Bu dosya 20 MB'tan büyük, bu yüzden görevle birlikte kaydedilemedi.",
+    "downloadFailed": "⚠️ Bu dosya indirilemedi. Mesaj dosya olmadan kaydedildi.",
+    "transcriptionFailed": "⚠️ Bu sesli mesaj yazıya dökülemedi. Ses dosyası olarak saklandı."
+  },
+  "list": {
+    "empty": "Henüz görev yok. İlkini kaydetmek için /new gönderin.",
+    "header": "📋 {total} görev: {open} açık, {done} tamamlandı",
+    "recording": "<i>(kaydediliyor…)</i>"
+  },
+  "status": {
+    "done": "✅ #{number} numaralı görev tamamlandı olarak işaretlendi.\n<b>{title}</b>",
+    "undone": "⬜ #{number} numaralı görev tamamlanmadı olarak işaretlendi.\n<b>{title}</b>",
+    "alreadyDone": "#{number} numaralı görev zaten tamamlandı olarak işaretli.",
+    "alreadyOpen": "#{number} numaralı görev zaten tamamlanmadı olarak işaretli."
+  },
+  "delete": {
+    "confirm": "🗑 #{number} numaralı görev ve tüm dosyaları silinsin mi?\n<b>{title}</b>\nBu işlem geri alınamaz.",
+    "done": "🗑 #{number} numaralı görev silindi.",
+    "kept": "#{number} numaralı görev saklandı."
+  },
+  "export": {
+    "status": "Durum",
+    "statusOpen": "Açık",
+    "statusDone": "Tamamlandı",
+    "group": "Grup",
+    "createdBy": "Oluşturan",
+    "created": "Oluşturulma",
+    "finished": "Bitiş",
+    "updated": "Son güncelleme",
+    "doneAt": "Tamamlanma",
+    "messages": "Mesajlar",
+    "attachments": "Ekler",
+    "conversation": "Konuşma",
+    "addedLater": "Sonradan eklendi ({date})",
+    "notTranscribed": "yazıya dökülmemiş sesli mesaj",
+    "fileMissing": "dosya kullanılamıyor (çok büyük veya indirilemedi)",
+    "kind": {
+      "voice": "sesli mesaj",
+      "audio": "ses",
+      "photo": "fotoğraf",
+      "video": "video",
+      "videoNote": "kısa video",
+      "file": "dosya",
+      "sticker": "çıkartma",
+      "other": "diğer"
+    },
+    "attachmentsLeftOut": "⚠️ Zip dosyası Telegram'ın 50 MB yükleme sınırını aşacağı için ekler dışarıda bırakıldı. Dosyalar sunucuda saklanmaya devam ediyor.",
+    "someFilesMissing": "⚠️ Bu dosyalar sunucuda bulunamadı ve zip dosyasında yok: {files}"
+  }
+}

@@ -23,6 +23,10 @@ describe('locale files', () => {
         intlLocale: expect.any(String),
         rtl: expect.any(Boolean),
       });
+      expect(
+        Intl.DateTimeFormat.supportedLocalesOf([parsed._meta.intlLocale]),
+        `${language}: unsupported intlLocale`,
+      ).toHaveLength(1);
       const messages = flattenMessages(parsed);
       expect(Object.keys(messages).sort(), `${language}: key set differs from en`).toEqual(
         Object.keys(en).sort(),

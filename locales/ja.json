@@ -1,0 +1,119 @@
+{
+  "_meta": { "name": "日本語", "englishName": "Japanese", "intlLocale": "ja-JP", "rtl": false },
+  "commands": {
+    "start": "ボットを開始",
+    "help": "使えるコマンドを表示",
+    "id": "自分のユーザーIDとこのチャットのIDを表示",
+    "register": "このグループでボットを有効化（オーナーのみ）",
+    "unregister": "このグループでボットを無効化（オーナーのみ）",
+    "new": "新しいタスクの記録を開始",
+    "end": "記録中のタスクを終了",
+    "cancel": "記録中のタスクをキャンセル",
+    "list": "すべてのタスクを一覧表示",
+    "done": "タスクを完了にする：/done 12",
+    "undone": "タスクを未完了にする：/undone 12",
+    "delete": "タスクを削除：/delete 12",
+    "show": "タスクを zip で出力（Markdown + ファイル）：/show 12",
+    "edit": "既存のタスクに追記：/edit 12"
+  },
+  "start": {
+    "private": "👋 こんにちは！Telegram グループからタスクを集めるボットです。\n\nあなたの Telegram ユーザーID：<code>{userId}</code>\nこのボットを運用している場合は、この番号を <code>OWNER_TELEGRAM_ID</code> に設定してください。\n\nグループに追加して、そこで /register を送ると有効化されます。/help ですべてのコマンドを確認できます。"
+  },
+  "help": { "text": "使えるコマンド：\n\n{commands}" },
+  "id": { "text": "あなたのユーザーID：<code>{userId}</code>\nチャットID：<code>{chatId}</code>" },
+  "errors": {
+    "generic": "問題が発生しました。もう一度お試しください。",
+    "groupOnly": "このコマンドはグループでのみ使えます。",
+    "ownerOnly": "この操作はボットのオーナーだけができます。",
+    "notRegistered": "このグループはまだ有効化されていません。先にボットのオーナーがここで /register を送る必要があります。",
+    "usageNumber": "タスク番号を付けてください。例：/{command} 12",
+    "taskNotFound": "このグループにタスク #{number} はありません。",
+    "taskRecording": "タスク #{number} はまだ記録中です。先に記録を終了またはキャンセルしてください。"
+  },
+  "register": {
+    "success": "✅ このグループは有効になりました。ここにいる誰でも /new でタスクを開始できます。",
+    "already": "このグループはすでに有効です。"
+  },
+  "unregister": {
+    "success": "このグループは無効化されました。既存のタスクは保持されます。再度有効化するには /register を送ってください。"
+  },
+  "joined": {
+    "hint": "👋 追加ありがとうございます！タスクの記録を有効にするには、ボットのオーナーがここで /register を送る必要があります。"
+  },
+  "buttons": {
+    "finish": "✅ 終了",
+    "cancel": "✖ キャンセル",
+    "confirmDelete": "🗑 はい、削除する",
+    "keep": "残す"
+  },
+  "task": {
+    "recordingStarted": "🎙 タスク #{number} を記録中です。\nこれからこのグループに送られるすべて（テキスト、音声、写真、動画、ファイル）が、誰が送ったものでもこのタスクに追加されます。終わったら<b>終了</b>を押してください。",
+    "alreadyRecording": "タスク #{number} はまだ記録中です。新しいタスクを始める前に、終了またはキャンセルしてください。",
+    "noneRecording": "現在記録中のタスクはありません。/new を送って開始してください。",
+    "finished": "✅ タスク #{number} を保存しました。\n<b>{title}</b>\n{count} 件のメッセージを記録しました。",
+    "updated": "✅ タスク #{number} を更新しました。\n<b>{title}</b>\n{count} 件のメッセージを追加しました。",
+    "recordingFinishedControl": "🎙 タスク #{number} の記録を終了しました。",
+    "cancelledControl": "🎙 タスク #{number} の記録をキャンセルしました。",
+    "cancelled": "✖ タスク #{number} はキャンセルされ、破棄されました。",
+    "editCancelled": "✖ タスク #{number} の編集をキャンセルしました。タスクは変更されていません。",
+    "emptyDiscarded": "何も記録されなかったため、タスク #{number} は破棄されました。",
+    "untitled": "タスク #{number}",
+    "editStarted": "✏️ タスク #{number} を編集中です。\n<b>{title}</b>\nこれからこのグループに送られるすべてがこのタスクに追加されます。終わったら<b>終了</b>を押してください。",
+    "editNothingAdded": "何も追加されなかったため、タスク #{number} は変更されていません。"
+  },
+  "callback": {
+    "stale": "このタスクはもう記録中ではありません。",
+    "notYours": "確認できるのは、この操作を要求した人（またはボットのオーナー）だけです。",
+    "gone": "このタスクはもう存在しません。"
+  },
+  "capture": {
+    "fileTooBig": "⚠️ このファイルは 20 MB を超えているため、タスクと一緒に保存できませんでした。",
+    "downloadFailed": "⚠️ このファイルをダウンロードできませんでした。メッセージはファイルなしで記録されました。",
+    "transcriptionFailed": "⚠️ この音声メッセージを文字起こしできませんでした。音声ファイルとして保存されています。"
+  },
+  "list": {
+    "empty": "まだタスクはありません。/new を送って最初のタスクを記録してください。",
+    "header": "📋 タスク {total} 件：未完了 {open} 件、完了 {done} 件",
+    "recording": "<i>（記録中…）</i>"
+  },
+  "status": {
+    "done": "✅ タスク #{number} を完了にしました。\n<b>{title}</b>",
+    "undone": "⬜ タスク #{number} を未完了にしました。\n<b>{title}</b>",
+    "alreadyDone": "タスク #{number} はすでに完了になっています。",
+    "alreadyOpen": "タスク #{number} はすでに未完了になっています。"
+  },
+  "delete": {
+    "confirm": "🗑 タスク #{number} とそのすべてのファイルを削除しますか？\n<b>{title}</b>\nこの操作は取り消せません。",
+    "done": "🗑 タスク #{number} を削除しました。",
+    "kept": "タスク #{number} を残しました。"
+  },
+  "export": {
+    "status": "状態",
+    "statusOpen": "未完了",
+    "statusDone": "完了",
+    "group": "グループ",
+    "createdBy": "作成者",
+    "created": "作成日時",
+    "finished": "終了日時",
+    "updated": "最終更新",
+    "doneAt": "完了日時",
+    "messages": "メッセージ",
+    "attachments": "添付ファイル",
+    "conversation": "会話",
+    "addedLater": "後から追加（{date}）",
+    "notTranscribed": "文字起こしのない音声メッセージ",
+    "fileMissing": "ファイルは利用できません（サイズ超過またはダウンロード失敗）",
+    "kind": {
+      "voice": "音声メッセージ",
+      "audio": "オーディオ",
+      "photo": "写真",
+      "video": "動画",
+      "videoNote": "ビデオメッセージ",
+      "file": "ファイル",
+      "sticker": "ステッカー",
+      "other": "その他"
+    },
+    "attachmentsLeftOut": "⚠️ zip が Telegram のアップロード上限（50 MB）を超えるため、添付ファイルは含めませんでした。ファイルはサーバー上に保存されています。",
+    "someFilesMissing": "⚠️ 次のファイルはサーバー上に見つからず、zip に含まれていません：{files}"
+  }
+}
