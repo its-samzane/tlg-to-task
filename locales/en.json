@@ -17,7 +17,8 @@
     "list": "List all tasks",
     "done": "Mark a task as done: /done 12",
     "undone": "Mark a task as not done: /undone 12",
-    "delete": "Delete a task: /delete 12"
+    "delete": "Delete a task: /delete 12",
+    "show": "Export a task as a zip (Markdown + files): /show 12"
   },
   "start": {
     "private": "👋 Hi! I collect tasks from Telegram groups.\n\nYour Telegram user ID: <code>{userId}</code>\nIf you run this bot, put that number in <code>OWNER_TELEGRAM_ID</code>.\n\nAdd me to a group and send /register there to activate me. Send /help to see all commands."
@@ -91,5 +92,34 @@
     "confirm": "🗑 Delete task #{number} and all of its files?\n<b>{title}</b>\nThis cannot be undone.",
     "done": "🗑 Task #{number} was deleted.",
     "kept": "Task #{number} was kept."
+  },
+  "export": {
+    "status": "Status",
+    "statusOpen": "Open",
+    "statusDone": "Done",
+    "group": "Group",
+    "createdBy": "Created by",
+    "created": "Created",
+    "finished": "Finished",
+    "updated": "Last updated",
+    "doneAt": "Marked done",
+    "messages": "Messages",
+    "attachments": "Attachments",
+    "conversation": "Conversation",
+    "addedLater": "Added later ({date})",
+    "notTranscribed": "voice message without transcript",
+    "fileMissing": "file not available (too large or could not be downloaded)",
+    "kind": {
+      "voice": "voice message",
+      "audio": "audio",
+      "photo": "photo",
+      "video": "video",
+      "videoNote": "video note",
+      "file": "file",
+      "sticker": "sticker",
+      "other": "other"
+    },
+    "attachmentsLeftOut": "⚠️ The attachments were left out of the zip because it would exceed Telegram's 50 MB upload limit. The files are still stored on the server.",
+    "someFilesMissing": "⚠️ These files were not found on the server and are missing from the zip: {files}"
   }
 }
