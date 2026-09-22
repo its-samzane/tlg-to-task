@@ -18,7 +18,8 @@
     "done": "Mark a task as done: /done 12",
     "undone": "Mark a task as not done: /undone 12",
     "delete": "Delete a task: /delete 12",
-    "show": "Export a task as a zip (Markdown + files): /show 12"
+    "show": "Export a task as a zip (Markdown + files): /show 12",
+    "edit": "Add more to an existing task: /edit 12"
   },
   "start": {
     "private": "👋 Hi! I collect tasks from Telegram groups.\n\nYour Telegram user ID: <code>{userId}</code>\nIf you run this bot, put that number in <code>OWNER_TELEGRAM_ID</code>.\n\nAdd me to a group and send /register there to activate me. Send /help to see all commands."
@@ -65,7 +66,9 @@
     "cancelled": "✖ Task #{number} was cancelled and discarded.",
     "editCancelled": "✖ Editing of task #{number} was cancelled. The task is unchanged.",
     "emptyDiscarded": "Nothing was recorded, so task #{number} was discarded.",
-    "untitled": "Task #{number}"
+    "untitled": "Task #{number}",
+    "editStarted": "✏️ Editing task #{number}.\n<b>{title}</b>\nEverything sent in this group from now on will be added to it. Press <b>Finish</b> when you are done.",
+    "editNothingAdded": "Nothing was added, so task #{number} is unchanged."
   },
   "callback": {
     "stale": "This task is no longer being recorded.",
