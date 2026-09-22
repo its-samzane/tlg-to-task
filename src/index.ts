@@ -1,11 +1,15 @@
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
+import { Api } from 'grammy';
 import { applyCommandMenu, createBot } from './bot/bot.js';
+import type { Deps } from './bot/context.js';
 import { loadConfig } from './config.js';
 import { createDb } from './db/client.js';
 import { runMigrations } from './db/migrate.js';
 import { createI18n } from './i18n.js';
 import { createLogger } from './logger.js';
+import { createFileStore } from './services/files.js';
+import { PendingWork } from './services/pending.js';
 
 async function main(): Promise<void> {
   const config = loadConfig();
@@ -19,7 +23,18 @@ async function main(): Promise<void> {
   await runMigrations(handle.db);
   logger.info('Database ready');
 
-  const deps = { config, db: handle.db, i18n, logger };
+  const deps: Deps = {
+    config,
+    db: handle.db,
+    i18n,
+    logger,
+    files: createFileStore({
+      storageDir,
+      api: new Api(config.TELEGRAM_BOT_TOKEN),
+      token: config.TELEGRAM_BOT_TOKEN,
+    }),
+    pending: new PendingWork(),
+  };
   const bot = createBot(deps);
   await applyCommandMenu(bot, deps);
 
@@ -31,7 +46,7 @@ async function main(): Promise<void> {
   process.once('SIGTERM', () => shutdown('SIGTERM'));
 
   await bot.start({
-    allowed_updates: ['message', 'edited_message', 'callback_query', 'my_chat_member'],
+    allowed_updates: ['message', 'callback_query', 'my_chat_member'],
     onStart: (me) =>
       logger.info(
         { username: me.username, language: config.BOT_LANGUAGE, timeZone: config.TZ },
