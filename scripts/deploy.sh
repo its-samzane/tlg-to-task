@@ -49,17 +49,17 @@ fi
 log "Fetching $BRANCH into $APP_DIR"
 "${SSH[@]}" bash -s <<REMOTE
 set -euo pipefail
-if [ ! -d "$APP_DIR/.git" ]; then
-  mkdir -p "$APP_DIR"
-  git clone --quiet --branch "$BRANCH" "$REPO" "$APP_DIR"
-else
-  cd "$APP_DIR"
-  git remote set-url origin "$REPO"
-  git fetch --quiet --prune origin
-  git checkout --quiet "$BRANCH" 2>/dev/null || git checkout --quiet -b "$BRANCH" "origin/$BRANCH"
-  git reset --quiet --hard "origin/$BRANCH"
+mkdir -p "$APP_DIR"
+cd "$APP_DIR"
+# The directory may already hold .env from the setup step, so initialise in place instead of cloning.
+if [ ! -d .git ]; then
+  git init --quiet
+  git remote add origin "$REPO"
 fi
-cd "$APP_DIR" && echo "at commit \$(git rev-parse --short HEAD)"
+git remote set-url origin "$REPO"
+git fetch --quiet --prune origin
+git checkout --quiet -B "$BRANCH" "origin/$BRANCH"
+echo "at commit \$(git rev-parse --short HEAD)"
 REMOTE
 
 if [ -n "$ENV_FILE" ]; then
