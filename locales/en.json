@@ -8,11 +8,15 @@
   "commands": {
     "start": "Start the bot",
     "help": "Show available commands",
-    "id": "Show your user ID and this chat ID"
+    "id": "Show your user ID and this chat ID",
+    "register": "Activate the bot in this group (owner only)",
+    "unregister": "Deactivate the bot in this group (owner only)",
+    "new": "Start recording a new task",
+    "end": "Finish the task being recorded",
+    "cancel": "Cancel the task being recorded"
   },
   "start": {
-    "private": "👋 Hi! I collect tasks from Telegram groups.\n\nYour Telegram user ID: <code>{userId}</code>\nIf you run this bot, put that number in <code>OWNER_TELEGRAM_ID</code>.\n\nAdd me to a group and send /register there to activate me. Send /help to see all commands.",
-    "group": "👋 Hi! Send /help to see what I can do."
+    "private": "👋 Hi! I collect tasks from Telegram groups.\n\nYour Telegram user ID: <code>{userId}</code>\nIf you run this bot, put that number in <code>OWNER_TELEGRAM_ID</code>.\n\nAdd me to a group and send /register there to activate me. Send /help to see all commands."
   },
   "help": {
     "text": "Available commands:\n\n{commands}"
@@ -21,6 +25,44 @@
     "text": "Your user ID: <code>{userId}</code>\nChat ID: <code>{chatId}</code>"
   },
   "errors": {
-    "generic": "Something went wrong. Please try again."
+    "generic": "Something went wrong. Please try again.",
+    "groupOnly": "This command only works in groups.",
+    "ownerOnly": "Only the bot owner can do that.",
+    "notRegistered": "This group is not activated yet. The bot owner has to send /register here first."
+  },
+  "register": {
+    "success": "✅ This group is now active. Anyone here can start a task with /new.",
+    "already": "This group is already active."
+  },
+  "unregister": {
+    "success": "This group has been deactivated. Existing tasks are kept; send /register to activate it again."
+  },
+  "joined": {
+    "hint": "👋 Thanks for adding me! The bot owner needs to send /register here to activate task recording."
+  },
+  "buttons": {
+    "finish": "✅ Finish",
+    "cancel": "✖ Cancel"
+  },
+  "task": {
+    "recordingStarted": "🎙 Recording task #{number}.\nEverything sent in this group from now on (text, voice, photos, videos, files) will be added to it, no matter who sends it. Press <b>Finish</b> when you are done.",
+    "alreadyRecording": "Task #{number} is still being recorded. Finish or cancel it before starting a new one.",
+    "noneRecording": "No task is being recorded right now. Send /new to start one.",
+    "finished": "✅ Task #{number} saved.\n<b>{title}</b>\n{count} message(s) recorded.",
+    "updated": "✅ Task #{number} updated.\n<b>{title}</b>\n{count} message(s) added.",
+    "recordingFinishedControl": "🎙 Recording of task #{number} finished.",
+    "cancelledControl": "🎙 Recording of task #{number} cancelled.",
+    "cancelled": "✖ Task #{number} was cancelled and discarded.",
+    "editCancelled": "✖ Editing of task #{number} was cancelled. The task is unchanged.",
+    "emptyDiscarded": "Nothing was recorded, so task #{number} was discarded.",
+    "untitled": "Task #{number}"
+  },
+  "callback": {
+    "stale": "This task is no longer being recorded."
+  },
+  "capture": {
+    "fileTooBig": "⚠️ This file is larger than 20 MB, so it could not be saved with the task.",
+    "downloadFailed": "⚠️ This file could not be downloaded. The message was recorded without it.",
+    "transcriptionFailed": "⚠️ This voice message could not be transcribed. It is kept as an audio file."
   }
 }

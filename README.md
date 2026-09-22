@@ -14,11 +14,12 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
 
 ## Features
 
-- **Task recording** _(planned)_ — `/new` starts a task; all following messages from all members
-  are recorded with author and time. Finish or cancel with inline buttons (or `/end`, `/cancel`).
+- **Task recording** — `/new` starts a task; all following messages from all members are
+  recorded with author and time. Finish or cancel with inline buttons (or `/end`, `/cancel`).
+- **Attachments** — photos, videos, voice messages and files are downloaded and kept with the
+  task (up to Telegram's 20 MB download limit).
 - **Voice to text** _(planned)_ — voice and audio messages are transcribed with OpenAI.
 - **AI titles** _(planned)_ — a short title is generated from the whole conversation.
-- **Attachments** _(planned)_ — photos, videos and files are downloaded and kept with the task.
 - **Task list** _(planned)_ — `/list` shows all tasks, newest first, with their status.
 - **Status** _(planned)_ — `/done N` and `/undone N`.
 - **Export** _(planned)_ — `/show N` sends a zip with `task-N.md`, `task.json` and an
@@ -31,12 +32,29 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
 ## How it works
 
 1. The owner adds the bot to a project group and sends `/register` there.
-2. Anyone in the group sends `/new`. The bot replies with a control message that has
-   **Finish** and **Cancel** buttons.
-3. Everything sent in the group is captured into the task (who said what, and when).
-4. **Finish** closes the task: pending transcriptions complete, a title is generated and the task
-   gets a number (`#1`, `#2`, ...). Only one task per group can be recording at a time.
+2. Anyone in the group sends `/new`. The task gets the next number for that group (`#1`, `#2`,
+   ...) and the bot replies with a control message that has **Finish** and **Cancel** buttons.
+3. Everything sent in the group is captured into the task (who said what, and when). Commands
+   are not captured. Only one task per group can be recording at a time.
+4. **Finish** closes the task: pending transcriptions complete and a title is generated.
+   **Cancel** discards it together with its files. Finishing an empty recording discards it too.
 5. Use `/list`, `/show N`, `/done N`, `/undone N`, `/edit N` and `/delete N` to manage tasks.
+
+### Commands
+
+| Command       | Where   | Who        | What it does                                            |
+| ------------- | ------- | ---------- | ------------------------------------------------------- |
+| `/start`      | private | anyone     | Introduction; shows your numeric user id.               |
+| `/help`       | both    | anyone     | Lists the available commands.                           |
+| `/id`         | both    | anyone     | Shows your user id and the chat id.                     |
+| `/register`   | group   | owner      | Activates the bot in the group.                         |
+| `/unregister` | group   | owner      | Deactivates the bot in the group; tasks are kept.       |
+| `/new`        | group   | any member | Starts recording a new task.                            |
+| `/end`        | group   | any member | Finishes the recording (same as the **Finish** button). |
+| `/cancel`     | group   | any member | Discards the recording (same as the **Cancel** button). |
+
+Attachments are stored under `STORAGE_DIR/tasks/<task id>/` with numbered names such as
+`001-photo.jpg` or `002-spec.pdf`.
 
 ## Requirements
 
@@ -140,7 +158,9 @@ src/
   config.ts         environment parsing and validation
   i18n.ts           locale loading, translation and date formatting
   db/               Drizzle schema, client and migrations
-  bot/              grammY bot, commands and handlers
+  services/         database operations, file storage, background work
+  bot/              grammY bot, commands, recording flow and message capture
+  test/             helpers: in-memory database, fake Telegram API, update builders
 locales/            one JSON file per language
 drizzle/            generated SQL migrations
 ```

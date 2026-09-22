@@ -1,17 +1,32 @@
-import { Bot } from 'grammy';
-import { COMMANDS, registerBasicCommands } from './commands/basic.js';
+import { Bot, type BotConfig } from 'grammy';
+import { getActiveChat } from '../services/chats.js';
+import { registerCapture } from './capture.js';
+import { registerBasicCommands } from './commands/basic.js';
+import { registerRegistrationCommands } from './commands/register.js';
 import type { AppContext, Deps } from './context.js';
+import { registerEvents } from './events.js';
+import { registerRecordingCommands } from './recording.js';
+import { isGroupChat } from './util.js';
 
-export function createBot(deps: Deps): Bot<AppContext> {
-  const bot = new Bot<AppContext>(deps.config.TELEGRAM_BOT_TOKEN);
+export { applyCommandMenu } from './commands/menu.js';
+
+export function createBot(deps: Deps, options: BotConfig<AppContext> = {}): Bot<AppContext> {
+  const bot = new Bot<AppContext>(deps.config.TELEGRAM_BOT_TOKEN, options);
 
   bot.use(async (ctx, next) => {
     ctx.deps = deps;
     ctx.t = deps.i18n.t;
+    if (isGroupChat(ctx.chat)) {
+      ctx.chatRecord = await getActiveChat(deps.db, ctx.chat!.id);
+    }
     await next();
   });
 
   registerBasicCommands(bot);
+  registerRegistrationCommands(bot);
+  registerRecordingCommands(bot);
+  registerEvents(bot);
+  registerCapture(bot);
 
   bot.catch((error) => {
     deps.logger.error(
@@ -21,11 +36,4 @@ export function createBot(deps: Deps): Bot<AppContext> {
   });
 
   return bot;
-}
-
-/** Publishes the command menu (the "/" button in Telegram) using the configured language. */
-export async function applyCommandMenu(bot: Bot<AppContext>, deps: Deps): Promise<void> {
-  await bot.api.setMyCommands(
-    COMMANDS.map((command) => ({ command, description: deps.i18n.t.raw(`commands.${command}`) })),
-  );
 }

@@ -1,6 +1,7 @@
 import { sql } from 'drizzle-orm';
 import {
   bigint,
+  boolean,
   index,
   integer,
   pgEnum,
@@ -39,6 +40,8 @@ export const chats = pgTable('chats', {
   chatId: bigint('chat_id', { mode: 'number' }).primaryKey(),
   title: text('title'),
   registeredByUserId: bigint('registered_by_user_id', { mode: 'number' }).notNull(),
+  /** False after /unregister: the bot ignores the group but keeps its tasks. */
+  active: boolean('active').notNull().default(true),
   /** Next per-chat task number, incremented atomically when a task is created. */
   nextTaskNumber: integer('next_task_number').notNull().default(1),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
