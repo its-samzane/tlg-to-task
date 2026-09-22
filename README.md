@@ -18,8 +18,10 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
   recorded with author and time. Finish or cancel with inline buttons (or `/end`, `/cancel`).
 - **Attachments** — photos, videos, voice messages and files are downloaded and kept with the
   task (up to Telegram's 20 MB download limit).
-- **Voice to text** _(planned)_ — voice and audio messages are transcribed with OpenAI.
-- **AI titles** _(planned)_ — a short title is generated from the whole conversation.
+- **Voice to text** — voice and audio messages are transcribed with OpenAI as they arrive;
+  finishing a task waits for pending transcriptions.
+- **AI titles** — when a task is finished, a short title in the configured language is
+  generated from the whole conversation (falls back to the first line of text).
 - **Task list** _(planned)_ — `/list` shows all tasks, newest first, with their status.
 - **Status** _(planned)_ — `/done N` and `/undone N`.
 - **Export** _(planned)_ — `/show N` sends a zip with `task-N.md`, `task.json` and an
@@ -55,6 +57,20 @@ The bot speaks the language you configure (`BOT_LANGUAGE`) and records tasks in 
 
 Attachments are stored under `STORAGE_DIR/tasks/<task id>/` with numbered names such as
 `001-photo.jpg` or `002-spec.pdf`.
+
+## OpenAI
+
+Set `OPENAI_API_KEY` to enable speech-to-text and AI titles. Without a key the bot still works:
+voice messages are kept as audio files and the first line of text becomes the title.
+
+- `OPENAI_MODEL` (default `gpt-4o-mini`) generates titles. Any chat model works.
+- `OPENAI_TRANSCRIPTION_MODEL` (default `gpt-4o-transcribe`) transcribes voice and audio messages.
+  `whisper-1` and `gpt-4o-mini-transcribe` are alternatives.
+- `TRANSCRIPTION_LANGUAGE` is passed as a language hint. It defaults to `BOT_LANGUAGE`; set it to
+  `auto` when people in your groups speak different languages.
+- `OPENAI_BASE_URL` points the SDK at a proxy or an OpenAI-compatible provider.
+- Transient errors are retried. If a transcription still fails, the voice message is kept without
+  text and the bot says so in the group; if title generation fails, the fallback title is used.
 
 ## Requirements
 

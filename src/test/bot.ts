@@ -45,7 +45,8 @@ export class FakeFileStore implements FileStore {
     extension?: string;
   }): Promise<SavedFile> {
     if (this.tooBig.has(input.fileId)) throw new FileTooBigError();
-    const fileName = attachmentFileName(input.index, input.baseName, input.extension ?? '.bin');
+    const extension = input.extension ?? (input.baseName === 'voice' ? '.oga' : '.bin');
+    const fileName = attachmentFileName(input.index, input.baseName, extension);
     const saved = { relativePath: `tasks/${input.taskId}/${fileName}`, fileName, size: 1234 };
     this.saved.push(saved);
     return saved;

@@ -9,6 +9,11 @@ import { runMigrations } from './db/migrate.js';
 import { createI18n } from './i18n.js';
 import { createLogger } from './logger.js';
 import { createFileStore } from './services/files.js';
+import {
+  createOpenAiClient,
+  createOpenAiTitleGenerator,
+  createOpenAiTranscriber,
+} from './services/openai.js';
 import { PendingWork } from './services/pending.js';
 
 async function main(): Promise<void> {
@@ -35,6 +40,28 @@ async function main(): Promise<void> {
     }),
     pending: new PendingWork(),
   };
+
+  if (config.OPENAI_API_KEY) {
+    const client = createOpenAiClient({
+      apiKey: config.OPENAI_API_KEY,
+      baseURL: config.OPENAI_BASE_URL,
+    });
+    const hint = config.TRANSCRIPTION_LANGUAGE ?? config.BOT_LANGUAGE;
+    deps.transcriber = createOpenAiTranscriber(client, {
+      model: config.OPENAI_TRANSCRIPTION_MODEL,
+      language: hint === 'auto' ? undefined : hint,
+    });
+    deps.titles = createOpenAiTitleGenerator(client, { model: config.OPENAI_MODEL });
+    logger.info(
+      { model: config.OPENAI_MODEL, transcriptionModel: config.OPENAI_TRANSCRIPTION_MODEL, hint },
+      'OpenAI enabled',
+    );
+  } else {
+    logger.warn(
+      'OPENAI_API_KEY is not set: voice messages will not be transcribed and titles will use the first line of text',
+    );
+  }
+
   const bot = createBot(deps);
   await applyCommandMenu(bot, deps);
 
