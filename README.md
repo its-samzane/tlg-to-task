@@ -130,6 +130,66 @@ npm start                 # or: pm2 start ecosystem.config.cjs && pm2 save
 Database migrations run automatically when the bot starts. To apply them without starting the
 bot, run `npm run db:migrate`.
 
+## Deploying to a server
+
+Two scripts automate the manual installation on a Debian/Ubuntu server. They are plain bash and
+need nothing but SSH access.
+
+### 1. Prepare the server (once)
+
+`scripts/setup-server.sh` runs on the server as root. It installs Node.js 22, PM2 and PostgreSQL
+when they are missing, creates a dedicated database role and database (`tlg_to_task` by default,
+override with `DB_NAME` / `DB_USER`), writes `DATABASE_URL` with a generated password into
+`<app dir>/.env` and registers PM2 to start on boot. It is idempotent.
+
+```bash
+# from your machine, in one go:
+DEPLOY_HOST=bot.example.com scripts/deploy.sh --setup
+
+# or on the server itself:
+bash scripts/setup-server.sh /opt/tlg-to-task
+```
+
+### 2. Deploy (every release)
+
+`scripts/deploy.sh` runs from your machine. It clones or updates the repository on the server,
+optionally merges a local env file into the server's `.env`, installs dependencies, builds, takes
+a `pg_dump` backup into `<app dir>/backups/` (the last ten are kept), and starts or reloads the
+bot with PM2. Migrations run when the bot starts.
+
+```bash
+DEPLOY_HOST=bot.example.com \
+DEPLOY_ENV_FILE=.env.production \
+scripts/deploy.sh
+```
+
+| Variable          | Default                                          | Description                                                     |
+| ----------------- | ------------------------------------------------ | --------------------------------------------------------------- |
+| `DEPLOY_HOST`     | required                                         | Server address.                                                 |
+| `DEPLOY_USER`     | `root`                                           | SSH user.                                                       |
+| `DEPLOY_PORT`     | `22`                                             | SSH port.                                                       |
+| `DEPLOY_PASSWORD` |                                                  | SSH password (uses `sshpass`). Leave empty to use SSH keys.     |
+| `DEPLOY_PATH`     | `/opt/tlg-to-task`                               | Application directory on the server.                            |
+| `DEPLOY_REPO`     | `https://github.com/its-samzane/tlg-to-task.git` | Repository to clone (use your fork if you have one).            |
+| `DEPLOY_BRANCH`   | `main`                                           | Branch to deploy.                                               |
+| `DEPLOY_ENV_FILE` |                                                  | Local file whose variables are merged into the server's `.env`. |
+| `SKIP_BACKUP`     |                                                  | Set to `1` to skip the database dump.                           |
+
+The env file you upload only needs the variables you want to set or change (for example
+`TELEGRAM_BOT_TOKEN`, `OWNER_TELEGRAM_ID`, `OPENAI_API_KEY`, `BOT_LANGUAGE`, `TZ`); anything already
+in the server's `.env`, such as the generated `DATABASE_URL`, is kept.
+
+### Day-to-day
+
+```bash
+pm2 status                       # process state
+pm2 logs tlg-to-task             # live logs
+pm2 restart tlg-to-task          # restart after editing .env
+```
+
+To update, run `scripts/deploy.sh` again. To back up manually, dump the database with `pg_dump`
+and copy the `storage/` directory, which holds all attachments.
+
 ## Telegram setup
 
 1. Create a bot with [@BotFather](https://t.me/BotFather) and copy the token into
