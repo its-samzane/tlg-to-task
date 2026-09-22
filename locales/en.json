@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "name": "English",
+    "englishName": "English",
+    "intlLocale": "en-US",
+    "rtl": false
+  },
+  "commands": {
+    "start": "Start the bot",
+    "help": "Show available commands",
+    "id": "Show your user ID and this chat ID"
+  },
+  "start": {
+    "private": "👋 Hi! I collect tasks from Telegram groups.\n\nYour Telegram user ID: <code>{userId}</code>\nIf you run this bot, put that number in <code>OWNER_TELEGRAM_ID</code>.\n\nAdd me to a group and send /register there to activate me. Send /help to see all commands.",
+    "group": "👋 Hi! Send /help to see what I can do."
+  },
+  "help": {
+    "text": "Available commands:\n\n{commands}"
+  },
+  "id": {
+    "text": "Your user ID: <code>{userId}</code>\nChat ID: <code>{chatId}</code>"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again."
+  }
+}

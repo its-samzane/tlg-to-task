@@ -1,0 +1,18 @@
+# dependencies and build output
+node_modules/
+dist/
+coverage/
+
+# runtime data
+storage/
+*.log
+
+# environment files (keep the example)
+.env
+.env.*
+!.env.example
+
+# editors and OS files
+.vscode/
+.idea/
+.DS_Store
