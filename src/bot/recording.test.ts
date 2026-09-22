@@ -78,6 +78,7 @@ describe('recording a task', () => {
     expect(stored[1]?.text).toBe('screenshot');
     expect(stored[1]?.filePath).toBe(`tasks/${task!.id}/001-photo.jpg`);
     expect(stored[2]?.transcriptionStatus).toBe('skipped');
+    expect(stored[2]?.filePath).toBe(`tasks/${task!.id}/002-voice.ogg`);
     expect(stored[3]?.fileName).toBe('003-spec v2.pdf');
 
     await test.bot.handleUpdate(callbackQuery(`task:finish:${task!.id}`, { from: OWNER }));

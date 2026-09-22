@@ -30,7 +30,9 @@ export function classifyMessage(message: TelegramMessage): Classified | undefine
       text: caption,
       fileId: message.voice.file_id,
       baseName: 'voice',
-      mimeType: message.voice.mime_type,
+      // Telegram serves voice notes as ".oga"; OpenAI only accepts the ".ogg" spelling.
+      extension: '.ogg',
+      mimeType: message.voice.mime_type ?? 'audio/ogg',
       fileSize: message.voice.file_size,
       durationSeconds: message.voice.duration,
     };

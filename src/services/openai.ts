@@ -1,4 +1,5 @@
 import { createReadStream } from 'node:fs';
+import path from 'node:path';
 import OpenAI, { toFile } from 'openai';
 import type { Message } from '../db/schema.js';
 import type { TitleGenerator, Transcriber } from './ai.js';
@@ -31,14 +32,61 @@ export interface TranscriberOptions {
   language?: string;
 }
 
+/** Extensions the transcription endpoint accepts (it judges the format by the file name). */
+const SUPPORTED_AUDIO_EXTENSIONS = new Set([
+  '.flac',
+  '.m4a',
+  '.mp3',
+  '.mp4',
+  '.mpeg',
+  '.mpga',
+  '.ogg',
+  '.wav',
+  '.webm',
+]);
+
+const MIME_TO_EXTENSION: Record<string, string> = {
+  'audio/ogg': '.ogg',
+  'audio/opus': '.ogg',
+  'audio/mpeg': '.mp3',
+  'audio/mp3': '.mp3',
+  'audio/mp4': '.m4a',
+  'audio/x-m4a': '.m4a',
+  'audio/aac': '.m4a',
+  'audio/wav': '.wav',
+  'audio/x-wav': '.wav',
+  'audio/flac': '.flac',
+  'audio/x-flac': '.flac',
+  'audio/webm': '.webm',
+  'video/mp4': '.mp4',
+  'video/webm': '.webm',
+};
+
+/**
+ * Chooses the file name sent to OpenAI. Telegram voice notes arrive as ".oga", which the API
+ * rejects even though the content is plain Ogg Opus, so unsupported extensions are replaced
+ * based on the MIME type (falling back to ".ogg" for Ogg audio).
+ */
+export function uploadFileName(fileName: string, mimeType?: string): string {
+  const extension = path.extname(fileName).toLowerCase();
+  if (SUPPORTED_AUDIO_EXTENSIONS.has(extension)) return fileName;
+  const base = fileName.slice(0, fileName.length - extension.length) || 'audio';
+  const mapped = mimeType
+    ? MIME_TO_EXTENSION[mimeType.toLowerCase().split(';')[0]!.trim()]
+    : undefined;
+  if (mapped) return `${base}${mapped}`;
+  if (extension === '.oga' || extension === '.opus') return `${base}.ogg`;
+  return fileName;
+}
+
 export function createOpenAiTranscriber(
   client: TranscriptionClient,
   options: TranscriberOptions,
 ): Transcriber {
   return {
-    async transcribe({ absolutePath, fileName }) {
+    async transcribe({ absolutePath, fileName, mimeType }) {
       const result = await client.audio.transcriptions.create({
-        file: await toFile(createReadStream(absolutePath), fileName),
+        file: await toFile(createReadStream(absolutePath), uploadFileName(fileName, mimeType)),
         model: options.model,
         response_format: 'json',
         ...(options.language ? { language: options.language } : {}),

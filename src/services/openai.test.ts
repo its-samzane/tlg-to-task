@@ -8,9 +8,22 @@ import {
   createOpenAiTitleGenerator,
   createOpenAiTranscriber,
   renderConversation,
+  uploadFileName,
   type ChatClient,
   type TranscriptionClient,
 } from './openai.js';
+
+describe('uploadFileName', () => {
+  it('keeps supported extensions and fixes unsupported ones from the MIME type', () => {
+    expect(uploadFileName('001-voice.ogg', 'audio/ogg')).toBe('001-voice.ogg');
+    expect(uploadFileName('001-voice.oga', 'audio/ogg')).toBe('001-voice.ogg');
+    expect(uploadFileName('001-voice.oga')).toBe('001-voice.ogg');
+    expect(uploadFileName('002-song.opus', 'audio/opus')).toBe('002-song.ogg');
+    expect(uploadFileName('003-memo.aac', 'audio/aac')).toBe('003-memo.m4a');
+    expect(uploadFileName('004-clip.MP3', 'audio/mpeg')).toBe('004-clip.MP3');
+    expect(uploadFileName('005-unknown.xyz', 'audio/strange')).toBe('005-unknown.xyz');
+  });
+});
 
 function message(partial: Partial<Message>): Message {
   return {
@@ -155,7 +168,8 @@ describe('createOpenAiTranscriber', () => {
     expect(calls[0]?.language).toBe('fa');
     expect(calls[0]?.response_format).toBe('json');
     const file = calls[0]?.file as File;
-    expect(file.name).toBe('001-voice.oga');
+    // ".oga" is renamed to ".ogg" because OpenAI rejects the "oga" spelling.
+    expect(file.name).toBe('001-voice.ogg');
     expect(await file.text()).toBe('fake audio bytes');
 
     const auto = createOpenAiTranscriber(client, { model: 'stt-model' });

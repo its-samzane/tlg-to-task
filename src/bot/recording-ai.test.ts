@@ -45,7 +45,7 @@ describe('recording with OpenAI services', () => {
     await test.bot.handleUpdate(textMessage('/end', { from: CLIENT }));
     const [stored] = await test.deps.db.select().from(messages);
     expect(stored?.transcriptionStatus).toBe('done');
-    expect(stored?.transcript).toBe('transcript of 001-voice.oga');
+    expect(stored?.transcript).toBe('transcript of 001-voice.ogg');
     const [task] = await test.deps.db.select().from(tasks);
     expect(task?.title).toBe('English title for 1 messages');
     expect(test.last()).toContain('English title for 1 messages');
