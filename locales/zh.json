@@ -1,0 +1,122 @@
+{
+  "_meta": {
+    "name": "简体中文",
+    "englishName": "Chinese (Simplified)",
+    "intlLocale": "zh-CN",
+    "rtl": false
+  },
+  "commands": {
+    "start": "启动机器人",
+    "help": "显示可用命令",
+    "id": "显示你的用户 ID 和本聊天的 ID",
+    "register": "在本群启用机器人（仅限所有者）",
+    "unregister": "在本群停用机器人（仅限所有者）",
+    "new": "开始记录一个新任务",
+    "end": "结束正在记录的任务",
+    "cancel": "取消正在记录的任务",
+    "list": "列出所有任务",
+    "done": "将任务标记为已完成：/done 12",
+    "undone": "将任务标记为未完成：/undone 12",
+    "delete": "删除任务：/delete 12",
+    "show": "将任务导出为 zip（Markdown + 文件）：/show 12",
+    "edit": "向已有任务添加内容：/edit 12"
+  },
+  "start": {
+    "private": "👋 你好！我负责从 Telegram 群组中收集任务。\n\n你的 Telegram 用户 ID：<code>{userId}</code>\n如果这个机器人由你运行，请把这个数字填入 <code>OWNER_TELEGRAM_ID</code>。\n\n把我加入群组并在群里发送 /register 即可启用。发送 /help 查看所有命令。"
+  },
+  "help": { "text": "可用命令：\n\n{commands}" },
+  "id": { "text": "你的用户 ID：<code>{userId}</code>\n聊天 ID：<code>{chatId}</code>" },
+  "errors": {
+    "generic": "出了点问题，请重试。",
+    "groupOnly": "此命令只能在群组中使用。",
+    "ownerOnly": "只有机器人所有者可以执行此操作。",
+    "notRegistered": "本群尚未启用。机器人所有者需要先在这里发送 /register。",
+    "usageNumber": "请加上任务编号，例如：/{command} 12",
+    "taskNotFound": "本群中没有任务 #{number}。",
+    "taskRecording": "任务 #{number} 仍在记录中。请先结束或取消记录。"
+  },
+  "register": {
+    "success": "✅ 本群已启用。群里的任何人都可以用 /new 开始一个任务。",
+    "already": "本群已经启用。"
+  },
+  "unregister": { "success": "本群已停用。已有任务会保留；发送 /register 可重新启用。" },
+  "joined": {
+    "hint": "👋 感谢把我加入群组！机器人所有者需要在这里发送 /register 以启用任务记录。"
+  },
+  "buttons": {
+    "finish": "✅ 结束",
+    "cancel": "✖ 取消",
+    "confirmDelete": "🗑 是，删除",
+    "keep": "保留"
+  },
+  "task": {
+    "recordingStarted": "🎙 正在记录任务 #{number}。\n从现在起在本群发送的一切内容（文字、语音、图片、视频、文件）都会加入该任务，无论由谁发送。完成后请按<b>结束</b>。",
+    "alreadyRecording": "任务 #{number} 仍在记录中。开始新任务前请先结束或取消它。",
+    "noneRecording": "目前没有正在记录的任务。发送 /new 开始一个。",
+    "finished": "✅ 任务 #{number} 已保存。\n<b>{title}</b>\n共记录 {count} 条消息。",
+    "updated": "✅ 任务 #{number} 已更新。\n<b>{title}</b>\n新增 {count} 条消息。",
+    "recordingFinishedControl": "🎙 任务 #{number} 的记录已结束。",
+    "cancelledControl": "🎙 任务 #{number} 的记录已取消。",
+    "cancelled": "✖ 任务 #{number} 已取消并丢弃。",
+    "editCancelled": "✖ 任务 #{number} 的编辑已取消。任务未改动。",
+    "emptyDiscarded": "没有记录到任何内容，任务 #{number} 已丢弃。",
+    "untitled": "任务 #{number}",
+    "editStarted": "✏️ 正在编辑任务 #{number}。\n<b>{title}</b>\n从现在起在本群发送的一切内容都会加入该任务。完成后请按<b>结束</b>。",
+    "editNothingAdded": "没有添加任何内容，任务 #{number} 未改动。"
+  },
+  "callback": {
+    "stale": "该任务已不在记录中。",
+    "notYours": "只有发起此操作的人（或机器人所有者）可以确认。",
+    "gone": "该任务已不存在。"
+  },
+  "capture": {
+    "fileTooBig": "⚠️ 此文件超过 20 MB，无法与任务一起保存。",
+    "downloadFailed": "⚠️ 无法下载此文件。消息已在没有该文件的情况下记录。",
+    "transcriptionFailed": "⚠️ 无法转写这条语音消息。它已作为音频文件保留。"
+  },
+  "list": {
+    "empty": "还没有任务。发送 /new 记录第一个。",
+    "header": "📋 共 {total} 个任务：{open} 个未完成，{done} 个已完成",
+    "recording": "<i>（记录中…）</i>"
+  },
+  "status": {
+    "done": "✅ 任务 #{number} 已标记为已完成。\n<b>{title}</b>",
+    "undone": "⬜ 任务 #{number} 已标记为未完成。\n<b>{title}</b>",
+    "alreadyDone": "任务 #{number} 已经标记为已完成。",
+    "alreadyOpen": "任务 #{number} 已经标记为未完成。"
+  },
+  "delete": {
+    "confirm": "🗑 要删除任务 #{number} 及其所有文件吗？\n<b>{title}</b>\n此操作无法撤销。",
+    "done": "🗑 任务 #{number} 已删除。",
+    "kept": "任务 #{number} 已保留。"
+  },
+  "export": {
+    "status": "状态",
+    "statusOpen": "未完成",
+    "statusDone": "已完成",
+    "group": "群组",
+    "createdBy": "创建者",
+    "created": "创建时间",
+    "finished": "结束时间",
+    "updated": "最后更新",
+    "doneAt": "完成时间",
+    "messages": "消息",
+    "attachments": "附件",
+    "conversation": "对话",
+    "addedLater": "后续添加（{date}）",
+    "notTranscribed": "未转写的语音消息",
+    "fileMissing": "文件不可用（过大或无法下载）",
+    "kind": {
+      "voice": "语音消息",
+      "audio": "音频",
+      "photo": "图片",
+      "video": "视频",
+      "videoNote": "视频留言",
+      "file": "文件",
+      "sticker": "贴纸",
+      "other": "其他"
+    },
+    "attachmentsLeftOut": "⚠️ 由于 zip 会超过 Telegram 的 50 MB 上传限制，附件未包含在其中。文件仍保存在服务器上。",
+    "someFilesMissing": "⚠️ 以下文件在服务器上未找到，zip 中缺少它们：{files}"
+  }
+}

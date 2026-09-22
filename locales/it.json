@@ -1,0 +1,119 @@
+{
+  "_meta": { "name": "Italiano", "englishName": "Italian", "intlLocale": "it-IT", "rtl": false },
+  "commands": {
+    "start": "Avvia il bot",
+    "help": "Mostra i comandi disponibili",
+    "id": "Mostra il tuo ID utente e l'ID di questa chat",
+    "register": "Attiva il bot in questo gruppo (solo proprietario)",
+    "unregister": "Disattiva il bot in questo gruppo (solo proprietario)",
+    "new": "Inizia a registrare una nuova attività",
+    "end": "Concludi l'attività in registrazione",
+    "cancel": "Annulla l'attività in registrazione",
+    "list": "Elenca tutte le attività",
+    "done": "Segna un'attività come completata: /done 12",
+    "undone": "Segna un'attività come non completata: /undone 12",
+    "delete": "Elimina un'attività: /delete 12",
+    "show": "Esporta un'attività come zip (Markdown + file): /show 12",
+    "edit": "Aggiungi altro a un'attività esistente: /edit 12"
+  },
+  "start": {
+    "private": "👋 Ciao! Raccolgo attività dai gruppi Telegram.\n\nIl tuo ID utente Telegram: <code>{userId}</code>\nSe gestisci questo bot, inserisci quel numero in <code>OWNER_TELEGRAM_ID</code>.\n\nAggiungimi a un gruppo e invia /register lì per attivarmi. Invia /help per vedere tutti i comandi."
+  },
+  "help": { "text": "Comandi disponibili:\n\n{commands}" },
+  "id": { "text": "Il tuo ID utente: <code>{userId}</code>\nID chat: <code>{chatId}</code>" },
+  "errors": {
+    "generic": "Qualcosa è andato storto. Riprova.",
+    "groupOnly": "Questo comando funziona solo nei gruppi.",
+    "ownerOnly": "Solo il proprietario del bot può farlo.",
+    "notRegistered": "Questo gruppo non è ancora attivato. Il proprietario del bot deve prima inviare /register qui.",
+    "usageNumber": "Indica il numero dell'attività, per esempio: /{command} 12",
+    "taskNotFound": "Non esiste un'attività #{number} in questo gruppo.",
+    "taskRecording": "L'attività #{number} è ancora in registrazione. Concludi o annulla prima la registrazione."
+  },
+  "register": {
+    "success": "✅ Questo gruppo è ora attivo. Chiunque qui può avviare un'attività con /new.",
+    "already": "Questo gruppo è già attivo."
+  },
+  "unregister": {
+    "success": "Questo gruppo è stato disattivato. Le attività esistenti sono conservate; invia /register per riattivarlo."
+  },
+  "joined": {
+    "hint": "👋 Grazie per avermi aggiunto! Il proprietario del bot deve inviare /register qui per attivare la registrazione delle attività."
+  },
+  "buttons": {
+    "finish": "✅ Concludi",
+    "cancel": "✖ Annulla",
+    "confirmDelete": "🗑 Sì, elimina",
+    "keep": "Mantieni"
+  },
+  "task": {
+    "recordingStarted": "🎙 Registrazione dell'attività #{number}.\nTutto ciò che verrà inviato in questo gruppo da ora (testo, vocali, foto, video, file) verrà aggiunto all'attività, chiunque lo invii. Premi <b>Concludi</b> quando hai finito.",
+    "alreadyRecording": "L'attività #{number} è ancora in registrazione. Concludila o annullala prima di avviarne una nuova.",
+    "noneRecording": "Al momento nessuna attività è in registrazione. Invia /new per avviarne una.",
+    "finished": "✅ Attività #{number} salvata.\n<b>{title}</b>\n{count} messaggio/i registrato/i.",
+    "updated": "✅ Attività #{number} aggiornata.\n<b>{title}</b>\n{count} messaggio/i aggiunto/i.",
+    "recordingFinishedControl": "🎙 Registrazione dell'attività #{number} conclusa.",
+    "cancelledControl": "🎙 Registrazione dell'attività #{number} annullata.",
+    "cancelled": "✖ L'attività #{number} è stata annullata ed eliminata.",
+    "editCancelled": "✖ La modifica dell'attività #{number} è stata annullata. L'attività è rimasta invariata.",
+    "emptyDiscarded": "Non è stato registrato nulla, quindi l'attività #{number} è stata eliminata.",
+    "untitled": "Attività #{number}",
+    "editStarted": "✏️ Modifica dell'attività #{number}.\n<b>{title}</b>\nTutto ciò che verrà inviato in questo gruppo da ora verrà aggiunto all'attività. Premi <b>Concludi</b> quando hai finito.",
+    "editNothingAdded": "Non è stato aggiunto nulla, quindi l'attività #{number} è rimasta invariata."
+  },
+  "callback": {
+    "stale": "Questa attività non è più in registrazione.",
+    "notYours": "Solo chi lo ha richiesto (o il proprietario del bot) può confermare.",
+    "gone": "Questa attività non esiste più."
+  },
+  "capture": {
+    "fileTooBig": "⚠️ Questo file supera i 20 MB, quindi non è stato possibile salvarlo con l'attività.",
+    "downloadFailed": "⚠️ Non è stato possibile scaricare questo file. Il messaggio è stato registrato senza di esso.",
+    "transcriptionFailed": "⚠️ Non è stato possibile trascrivere questo messaggio vocale. È conservato come file audio."
+  },
+  "list": {
+    "empty": "Nessuna attività ancora. Invia /new per registrare la prima.",
+    "header": "📋 {total} attività: {open} aperte, {done} completate",
+    "recording": "<i>(in registrazione…)</i>"
+  },
+  "status": {
+    "done": "✅ Attività #{number} segnata come completata.\n<b>{title}</b>",
+    "undone": "⬜ Attività #{number} segnata come non completata.\n<b>{title}</b>",
+    "alreadyDone": "L'attività #{number} è già segnata come completata.",
+    "alreadyOpen": "L'attività #{number} è già segnata come non completata."
+  },
+  "delete": {
+    "confirm": "🗑 Eliminare l'attività #{number} e tutti i suoi file?\n<b>{title}</b>\nQuesta operazione non può essere annullata.",
+    "done": "🗑 L'attività #{number} è stata eliminata.",
+    "kept": "L'attività #{number} è stata mantenuta."
+  },
+  "export": {
+    "status": "Stato",
+    "statusOpen": "Aperta",
+    "statusDone": "Completata",
+    "group": "Gruppo",
+    "createdBy": "Creata da",
+    "created": "Creata",
+    "finished": "Conclusa",
+    "updated": "Ultimo aggiornamento",
+    "doneAt": "Segnata completata",
+    "messages": "Messaggi",
+    "attachments": "Allegati",
+    "conversation": "Conversazione",
+    "addedLater": "Aggiunto in seguito ({date})",
+    "notTranscribed": "messaggio vocale senza trascrizione",
+    "fileMissing": "file non disponibile (troppo grande o impossibile scaricarlo)",
+    "kind": {
+      "voice": "messaggio vocale",
+      "audio": "audio",
+      "photo": "foto",
+      "video": "video",
+      "videoNote": "videomessaggio",
+      "file": "file",
+      "sticker": "sticker",
+      "other": "altro"
+    },
+    "attachmentsLeftOut": "⚠️ Gli allegati sono stati esclusi dallo zip perché supererebbe il limite di caricamento di Telegram (50 MB). I file restano salvati sul server.",
+    "someFilesMissing": "⚠️ Questi file non sono stati trovati sul server e mancano nello zip: {files}"
+  }
+}

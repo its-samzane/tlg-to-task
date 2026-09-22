@@ -1,0 +1,121 @@
+{
+  "_meta": { "name": "Français", "englishName": "French", "intlLocale": "fr-FR", "rtl": false },
+  "commands": {
+    "start": "Démarrer le bot",
+    "help": "Afficher les commandes disponibles",
+    "id": "Afficher votre identifiant utilisateur et celui de cette discussion",
+    "register": "Activer le bot dans ce groupe (propriétaire uniquement)",
+    "unregister": "Désactiver le bot dans ce groupe (propriétaire uniquement)",
+    "new": "Commencer l'enregistrement d'une nouvelle tâche",
+    "end": "Terminer la tâche en cours d'enregistrement",
+    "cancel": "Annuler la tâche en cours d'enregistrement",
+    "list": "Lister toutes les tâches",
+    "done": "Marquer une tâche comme terminée : /done 12",
+    "undone": "Marquer une tâche comme non terminée : /undone 12",
+    "delete": "Supprimer une tâche : /delete 12",
+    "show": "Exporter une tâche en zip (Markdown + fichiers) : /show 12",
+    "edit": "Ajouter des éléments à une tâche existante : /edit 12"
+  },
+  "start": {
+    "private": "👋 Bonjour ! Je collecte des tâches depuis des groupes Telegram.\n\nVotre identifiant utilisateur Telegram : <code>{userId}</code>\nSi vous exploitez ce bot, mettez ce nombre dans <code>OWNER_TELEGRAM_ID</code>.\n\nAjoutez-moi à un groupe et envoyez-y /register pour m'activer. Envoyez /help pour voir toutes les commandes."
+  },
+  "help": { "text": "Commandes disponibles :\n\n{commands}" },
+  "id": {
+    "text": "Votre identifiant utilisateur : <code>{userId}</code>\nIdentifiant de la discussion : <code>{chatId}</code>"
+  },
+  "errors": {
+    "generic": "Une erreur s'est produite. Veuillez réessayer.",
+    "groupOnly": "Cette commande ne fonctionne que dans les groupes.",
+    "ownerOnly": "Seul le propriétaire du bot peut faire cela.",
+    "notRegistered": "Ce groupe n'est pas encore activé. Le propriétaire du bot doit d'abord envoyer /register ici.",
+    "usageNumber": "Veuillez indiquer le numéro de la tâche, par exemple : /{command} 12",
+    "taskNotFound": "Il n'y a pas de tâche #{number} dans ce groupe.",
+    "taskRecording": "La tâche #{number} est encore en cours d'enregistrement. Terminez ou annulez d'abord l'enregistrement."
+  },
+  "register": {
+    "success": "✅ Ce groupe est maintenant actif. Tout le monde ici peut démarrer une tâche avec /new.",
+    "already": "Ce groupe est déjà actif."
+  },
+  "unregister": {
+    "success": "Ce groupe a été désactivé. Les tâches existantes sont conservées ; envoyez /register pour le réactiver."
+  },
+  "joined": {
+    "hint": "👋 Merci de m'avoir ajouté ! Le propriétaire du bot doit envoyer /register ici pour activer l'enregistrement des tâches."
+  },
+  "buttons": {
+    "finish": "✅ Terminer",
+    "cancel": "✖ Annuler",
+    "confirmDelete": "🗑 Oui, supprimer",
+    "keep": "Conserver"
+  },
+  "task": {
+    "recordingStarted": "🎙 Enregistrement de la tâche #{number}.\nTout ce qui sera envoyé dans ce groupe à partir de maintenant (texte, vocaux, photos, vidéos, fichiers) y sera ajouté, quel que soit l'expéditeur. Appuyez sur <b>Terminer</b> quand vous avez fini.",
+    "alreadyRecording": "La tâche #{number} est encore en cours d'enregistrement. Terminez-la ou annulez-la avant d'en démarrer une nouvelle.",
+    "noneRecording": "Aucune tâche n'est en cours d'enregistrement. Envoyez /new pour en démarrer une.",
+    "finished": "✅ Tâche #{number} enregistrée.\n<b>{title}</b>\n{count} message(s) enregistré(s).",
+    "updated": "✅ Tâche #{number} mise à jour.\n<b>{title}</b>\n{count} message(s) ajouté(s).",
+    "recordingFinishedControl": "🎙 Enregistrement de la tâche #{number} terminé.",
+    "cancelledControl": "🎙 Enregistrement de la tâche #{number} annulé.",
+    "cancelled": "✖ La tâche #{number} a été annulée et supprimée.",
+    "editCancelled": "✖ La modification de la tâche #{number} a été annulée. La tâche est inchangée.",
+    "emptyDiscarded": "Rien n'a été enregistré, la tâche #{number} a donc été supprimée.",
+    "untitled": "Tâche #{number}",
+    "editStarted": "✏️ Modification de la tâche #{number}.\n<b>{title}</b>\nTout ce qui sera envoyé dans ce groupe à partir de maintenant y sera ajouté. Appuyez sur <b>Terminer</b> quand vous avez fini.",
+    "editNothingAdded": "Rien n'a été ajouté, la tâche #{number} est donc inchangée."
+  },
+  "callback": {
+    "stale": "Cette tâche n'est plus en cours d'enregistrement.",
+    "notYours": "Seule la personne qui l'a demandé (ou le propriétaire du bot) peut confirmer.",
+    "gone": "Cette tâche n'existe plus."
+  },
+  "capture": {
+    "fileTooBig": "⚠️ Ce fichier dépasse 20 Mo et n'a donc pas pu être enregistré avec la tâche.",
+    "downloadFailed": "⚠️ Ce fichier n'a pas pu être téléchargé. Le message a été enregistré sans lui.",
+    "transcriptionFailed": "⚠️ Ce message vocal n'a pas pu être transcrit. Il est conservé sous forme de fichier audio."
+  },
+  "list": {
+    "empty": "Aucune tâche pour l'instant. Envoyez /new pour enregistrer la première.",
+    "header": "📋 {total} tâche(s) : {open} ouverte(s), {done} terminée(s)",
+    "recording": "<i>(enregistrement en cours…)</i>"
+  },
+  "status": {
+    "done": "✅ Tâche #{number} marquée comme terminée.\n<b>{title}</b>",
+    "undone": "⬜ Tâche #{number} marquée comme non terminée.\n<b>{title}</b>",
+    "alreadyDone": "La tâche #{number} est déjà marquée comme terminée.",
+    "alreadyOpen": "La tâche #{number} est déjà marquée comme non terminée."
+  },
+  "delete": {
+    "confirm": "🗑 Supprimer la tâche #{number} et tous ses fichiers ?\n<b>{title}</b>\nCette action est irréversible.",
+    "done": "🗑 La tâche #{number} a été supprimée.",
+    "kept": "La tâche #{number} a été conservée."
+  },
+  "export": {
+    "status": "Statut",
+    "statusOpen": "Ouverte",
+    "statusDone": "Terminée",
+    "group": "Groupe",
+    "createdBy": "Créée par",
+    "created": "Créée le",
+    "finished": "Terminée le",
+    "updated": "Dernière mise à jour",
+    "doneAt": "Marquée terminée le",
+    "messages": "Messages",
+    "attachments": "Pièces jointes",
+    "conversation": "Conversation",
+    "addedLater": "Ajouté plus tard ({date})",
+    "notTranscribed": "message vocal sans transcription",
+    "fileMissing": "fichier indisponible (trop volumineux ou téléchargement impossible)",
+    "kind": {
+      "voice": "message vocal",
+      "audio": "audio",
+      "photo": "photo",
+      "video": "vidéo",
+      "videoNote": "vidéo courte",
+      "file": "fichier",
+      "sticker": "sticker",
+      "other": "autre"
+    },
+    "attachmentsLeftOut": "⚠️ Les pièces jointes ont été exclues du zip car il dépasserait la limite d'envoi de Telegram (50 Mo). Les fichiers restent stockés sur le serveur.",
+    "someFilesMissing": "⚠️ Ces fichiers n'ont pas été trouvés sur le serveur et sont absents du zip : {files}"
+  }
+}
